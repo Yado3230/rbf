@@ -52,7 +52,7 @@ export interface RevenueShareDriverResponse {
   id: number;
   description: string;
   type: string;
-  receiptsRate: string;
+  receiptsRate: number;
   createdDate: Date;
   variableTypePhase: number;
   months: number;
@@ -61,7 +61,7 @@ export interface RevenueShareDriverResponse {
 export interface RevenueShareDriverRequest {
   description: string;
   type: string;
-  receiptsRate: string;
+  receiptsRate: number;
   variableTypePhase: number;
   months: number;
 }

@@ -102,10 +102,10 @@ const CapTables = () => {
                   {item.description}
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  {item.endingMonth}
+                  {item.endingMonth} Months
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  {item.growthRate}
+                  {item.growthRate}%
                 </div>
               </div>
               <Button
@@ -191,10 +191,10 @@ const CapTables = () => {
                   {item.variableTypePhase}
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  {item.months}
+                  {item.months} {item.months === 0 ? "" : "Months"}
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  {item.receiptsRate}
+                  {item.receiptsRate}%
                 </div>
               </div>
               <Button

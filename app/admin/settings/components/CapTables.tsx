@@ -83,13 +83,13 @@ const CapTables = () => {
             <div className="flex space-x-2" key={item.id}>
               <div className="grid grid-cols-3 gap-2 w-full">
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  {item.month}
+                  {item.month} Months
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  {item.fixedRevenueShareRate}
+                  {item.fixedRevenueShareRate}x of Principal
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  {item.variableRevenueShareRate}
+                  {item.variableRevenueShareRate}x of Principal
                 </div>
               </div>
               <Button

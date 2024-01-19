@@ -25,7 +25,7 @@ const formSchema = z.object({
   type: z.string().min(1).max(50),
   variableTypePhase: z.coerce.number().max(50),
   months: z.coerce.number().max(50),
-  receiptsRate: z.string().min(1).max(50),
+  receiptsRate: z.coerce.number().min(1).max(50),
 });
 
 type RevenueShareDriversFormProps = {
@@ -60,7 +60,7 @@ const RevenueShareDriversForm: FC<RevenueShareDriversFormProps> = ({
           type: "",
           variableTypePhase: 0,
           months: 0,
-          receiptsRate: "",
+          receiptsRate: 0,
         },
   });
 
