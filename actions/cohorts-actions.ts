@@ -13,6 +13,17 @@ export const getAllCohorts = async (): Promise<CohortResponse[]> => {
   }
 };
 
+export const getCohort = async (id: string): Promise<CohortResponse> => {
+  try {
+    const res = await fetch(`${API_URL}api/v1/cohorts/${id}`);
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
 export const createCohort = async (
   values: CohortRequest
 ): Promise<CohortResponse> => {
@@ -50,7 +61,7 @@ export const deleteCohort = async (id: number): Promise<[]> => {
 
 export const editCohort = async (
   values: CohortRequest,
-  id: number
+  id: string
 ): Promise<CohortResponse> => {
   try {
     const res = await fetch(`${API_URL}api/v1/cohorts/${id}`, {

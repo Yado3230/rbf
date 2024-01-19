@@ -63,10 +63,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             Copy ID
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/admin/visitors/${data.id.toString()}`)}
+            onClick={() => router.push(`/admin/cohorts/${data.id}`)}
           >
-            <Backpack className="mr-2 h-4 w-4" />
-            Preview
+            <Edit className="mr-2 h-4 w-4" />
+            Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" />

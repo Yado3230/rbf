@@ -4,6 +4,7 @@ import Sidebar from "@/app/admin/components/Sidebar";
 import Navbar from "@/app/admin/components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { CohortModal } from "@/components/modals/cohort-modal";
 
 export default function RootLayout({
   children,

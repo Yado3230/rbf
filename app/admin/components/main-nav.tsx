@@ -7,6 +7,7 @@ import {
   BookTemplate,
   LayoutDashboard,
   Settings,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -45,7 +46,7 @@ export const MainNav: FC<SidebarProps> = ({
       label: "Cohorts",
       active: pathname === `/admin/cohorts`,
       icon: (
-        <BookTemplate
+        <Users
           size={15}
           color={`${pathname === `/admin/cohorts` ? "#fff" : "#707E94"}`}
         />

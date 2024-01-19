@@ -149,12 +149,18 @@ const CapTables = () => {
           </CollapsibleTrigger>
         </div>
         <div className="flex space-x-2">
-          <div className="grid grid-cols-3 gap-2 w-full">
+          <div className="grid grid-cols-5 gap-2 w-full">
             <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
               Description
             </div>
             <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
               Type
+            </div>
+            <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              Variable Type Phase
+            </div>
+            <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              Months
             </div>
             <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
               Rate
@@ -174,12 +180,18 @@ const CapTables = () => {
         <CollapsibleContent className="space-y-2">
           {revenueShareDrivers.map((item) => (
             <div className="flex space-x-2" key={item.id}>
-              <div className="grid grid-cols-3 gap-2 w-full">
+              <div className="grid grid-cols-5 gap-2 w-full">
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
                   {item.description}
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
                   {item.type}
+                </div>
+                <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  {item.variableTypePhase}
+                </div>
+                <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  {item.months}
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
                   {item.receiptsRate}

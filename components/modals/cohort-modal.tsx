@@ -55,7 +55,7 @@ export const CohortModal = () => {
     RevenueShareTypeResponse[]
   >([]);
   const [capTables, setCapTables] = useState<CapTableResponse[]>([]);
-  const [error, setError] = useState<any>(null); // Adjust the type based on the actual error type
+  const [error, setError] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {

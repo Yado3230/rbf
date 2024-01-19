@@ -54,12 +54,16 @@ export interface RevenueShareDriverResponse {
   type: string;
   receiptsRate: string;
   createdDate: Date;
+  variableTypePhase: number;
+  months: number;
 }
 
 export interface RevenueShareDriverRequest {
   description: string;
   type: string;
   receiptsRate: string;
+  variableTypePhase: number;
+  months: number;
 }
 
 export interface RevenueProjectionTypeRequest {

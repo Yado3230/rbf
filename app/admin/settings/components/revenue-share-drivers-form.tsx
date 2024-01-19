@@ -23,6 +23,8 @@ import { z } from "zod";
 const formSchema = z.object({
   description: z.string().min(1).max(50),
   type: z.string().min(1).max(50),
+  variableTypePhase: z.coerce.number().max(50),
+  months: z.coerce.number().max(50),
   receiptsRate: z.string().min(1).max(50),
 });
 
@@ -49,11 +51,15 @@ const RevenueShareDriversForm: FC<RevenueShareDriversFormProps> = ({
       ? {
           description: revenueShareDriver.description,
           type: revenueShareDriver.type,
+          variableTypePhase: revenueShareDriver.variableTypePhase,
+          months: revenueShareDriver.months,
           receiptsRate: revenueShareDriver.receiptsRate,
         }
       : {
           description: "",
           type: "",
+          variableTypePhase: 0,
+          months: 0,
           receiptsRate: "",
         },
   });
@@ -97,7 +103,7 @@ const RevenueShareDriversForm: FC<RevenueShareDriversFormProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-1 space-x-2 w-full">
-            <div className="grid grid-cols-3 gap-2 w-full">
+            <div className="grid grid-cols-5 gap-2 w-full">
               <FormField
                 control={form.control}
                 name="description"
@@ -117,6 +123,34 @@ const RevenueShareDriversForm: FC<RevenueShareDriversFormProps> = ({
                   <FormItem>
                     <FormControl>
                       <Input placeholder="Type" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="variableTypePhase"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Variable Type Phase"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="months"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input type="number" placeholder="Months" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

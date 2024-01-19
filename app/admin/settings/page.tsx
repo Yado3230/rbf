@@ -1,6 +1,5 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Lock, User } from "lucide-react";
@@ -24,7 +23,7 @@ const Page = () => {
       <Tabs defaultValue="cap-table" className="w-full">
         <TabsList className="flex items-center justify-start mb-4">
           <TabsTrigger value="cap-table" className="py-1">
-            <Lock className="w-5 h-5 mr-2" /> Payoff Month
+            <Lock className="w-5 h-5 mr-2" /> Cap Table
           </TabsTrigger>
           <TabsTrigger value="drivers" className="py-1">
             <Lock className="w-5 h-5 mr-2" /> Drivers
