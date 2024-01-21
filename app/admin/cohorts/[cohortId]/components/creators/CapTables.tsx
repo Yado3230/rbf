@@ -72,7 +72,7 @@ const CapTables: FC<CapTableProps> = ({ cohortId }) => {
 
   return (
     <>
-      <div className="grid gap-4 w-full border rounded p-3 mb-5">
+      <div className="grid gap-4 w-full border border-cyan-500 rounded p-3 mb-5">
         <Collapsible
           open={isOpen}
           onOpenChange={setIsOpen}
