@@ -1,8 +1,9 @@
+import { editRevenueShareDriver } from "@/actions/drivers-action";
 import {
-  createRevenueDriver,
-  deleteRevenueDriver,
-  editRevenueDriver,
-} from "@/actions/drivers-action";
+  createRevenueShareType,
+  deleteRevenueShareType,
+  editRevenueShareType,
+} from "@/actions/types-action";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RevenueDriverResponse } from "@/types/types";
+import { RevenueShareTypeResponse } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Trash, X } from "lucide-react";
 import React, { FC, useState } from "react";
@@ -21,40 +22,39 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 const formSchema = z.object({
-  description: z.string().min(1).max(50),
-  endingMonth: z.coerce.number().min(1).max(50),
-  growthRate: z.coerce.number().min(1).max(50),
+  type: z.string().min(1).max(50),
+  cohortId: z.coerce.number().optional(),
 });
 
-type RevenueDriversFormProps = {
+type ShareTypeFormProps = {
   updated: boolean;
   loading: boolean;
   setUpdated(updated: boolean): void;
   setLoading(loading: boolean): void;
   setAddNew(newState: string): void;
-  revenueDriver: RevenueDriverResponse | undefined;
+  revenueShareType: RevenueShareTypeResponse | undefined;
+  cohortId: number;
 };
 
-const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
+const ShareTypeForm: FC<ShareTypeFormProps> = ({
   setAddNew,
-  revenueDriver,
+  revenueShareType,
   updated,
   setUpdated,
   setLoading,
   loading,
+  cohortId,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: revenueDriver
+    defaultValues: revenueShareType
       ? {
-          description: revenueDriver.description,
-          endingMonth: revenueDriver.endingMonth,
-          growthRate: revenueDriver.growthRate,
+          type: revenueShareType.type,
+          cohortId: revenueShareType.cohortId,
         }
       : {
-          description: "",
-          endingMonth: 0,
-          growthRate: 0,
+          type: "",
+          cohortId: cohortId,
         },
   });
 
@@ -62,11 +62,13 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
     console.log(values);
     try {
       setLoading(true);
-      revenueDriver
-        ? await editRevenueDriver(values, revenueDriver.id)
-        : await createRevenueDriver(values);
+      revenueShareType
+        ? await editRevenueShareType(values, revenueShareType.id)
+        : await createRevenueShareType(values);
       setUpdated(!updated);
-      toast.success(revenueDriver ? "Updated" : "Revenue Driver Created");
+      toast.success(
+        revenueShareType ? "Updated" : "Revenue Share Type Created"
+      );
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -78,9 +80,9 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      revenueDriver && (await deleteRevenueDriver(revenueDriver.id));
+      revenueShareType && (await deleteRevenueShareType(revenueShareType.id));
       setUpdated(!updated);
-      toast.success(revenueDriver ? "Updated" : "Removed");
+      toast.success(revenueShareType ? "Updated" : "Removed");
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -94,46 +96,14 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-1 space-x-2 w-full">
-            <div className="grid grid-cols-3 gap-2 w-full">
+            <div className="grid gap-2 w-full">
               <FormField
                 control={form.control}
-                name="description"
+                name="type"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Description" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="endingMonth"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Ending Month"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="growthRate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Growth Rate"
-                        {...field}
-                      />
+                      <Input placeholder="Share Type" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -148,7 +118,7 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             >
               <Check className="h-4 w-4" />
             </Button>
-            {revenueDriver && (
+            {revenueShareType && (
               <Button
                 size="icon"
                 disabled={loading}
@@ -161,9 +131,9 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             )}
             <Button
               size="icon"
-              variant="outline"
               type="button"
               disabled={loading}
+              variant="outline"
               onClick={() => setAddNew("")}
             >
               <X className="h-4 w-4" />
@@ -175,4 +145,4 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   );
 };
 
-export default RevenueDriversForm;
+export default ShareTypeForm;

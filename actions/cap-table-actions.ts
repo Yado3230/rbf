@@ -4,7 +4,22 @@ const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getAllReturnCapTables = async (): Promise<CapTableResponse[]> => {
   try {
-    const res = await fetch(`${API_URL}api/v1/payoff-months`);
+    const res = await fetch(`${API_URL}api/v1/payoff-months/default`);
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getAllReturnCapTablesByCohortId = async (
+  cohortId: number
+): Promise<CapTableResponse[]> => {
+  try {
+    const res = await fetch(
+      `${API_URL}api/v1/payoff-months?cohortId=${cohortId}`
+    );
     const responseData = await res.json();
     return responseData;
   } catch (error) {

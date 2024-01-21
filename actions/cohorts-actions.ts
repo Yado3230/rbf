@@ -43,7 +43,7 @@ export const createCohort = async (
   }
 };
 
-export const deleteCohort = async (id: number): Promise<[]> => {
+export const deleteCohort = async (id: string): Promise<[]> => {
   try {
     const res = await fetch(`${API_URL}api/v1/cohorts/${id}`, {
       method: "DELETE",

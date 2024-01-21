@@ -11,7 +11,24 @@ export const getAllRevenueProjectionTypes = async (): Promise<
   RevenueProjectionTypeResponse[]
 > => {
   try {
-    const res = await fetch(`${API_URL}api/v1/revenue-projection-types`);
+    const res = await fetch(
+      `${API_URL}api/v1/revenue-projection-types/default`
+    );
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getAllRevenueProjectionTypesByCohortId = async (
+  cohortId: number
+): Promise<RevenueProjectionTypeResponse[]> => {
+  try {
+    const res = await fetch(
+      `${API_URL}api/v1/revenue-projection-types?cohortId=${cohortId}`
+    );
     const responseData = await res.json();
     return responseData;
   } catch (error) {
@@ -24,7 +41,22 @@ export const getAllRevenueShareTypes = async (): Promise<
   RevenueShareTypeResponse[]
 > => {
   try {
-    const res = await fetch(`${API_URL}api/v1/revenue-share-types`);
+    const res = await fetch(`${API_URL}api/v1/revenue-share-types/default`);
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getAllRevenueShareTypesByCohortId = async (
+  cohortId: number
+): Promise<RevenueShareTypeResponse[]> => {
+  try {
+    const res = await fetch(
+      `${API_URL}api/v1/revenue-share-types?cohortId=${cohortId}`
+    );
     const responseData = await res.json();
     return responseData;
   } catch (error) {

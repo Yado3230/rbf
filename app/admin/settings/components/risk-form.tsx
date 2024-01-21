@@ -18,7 +18,7 @@ import { RiskResponse } from "@/types/types";
 
 const formSchema = z.object({
   type: z.string().min(1).max(50),
-  percentage: z.string().min(1).max(50),
+  percentage: z.coerce.number().min(1).max(50),
 });
 
 type RiskFormProps = {
@@ -47,7 +47,7 @@ const RiskForm: FC<RiskFormProps> = ({
         }
       : {
           type: "",
-          percentage: "",
+          percentage: 0,
         },
   });
 

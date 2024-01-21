@@ -11,7 +11,22 @@ export const getAllRevenueDrivers = async (): Promise<
   RevenueDriverResponse[]
 > => {
   try {
-    const res = await fetch(`${API_URL}api/v1/revenue-drivers`);
+    const res = await fetch(`${API_URL}api/v1/revenue-drivers/default`);
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getAllRevenueDriversByCohortId = async (
+  cohortId: number
+): Promise<RevenueDriverResponse[]> => {
+  try {
+    const res = await fetch(
+      `${API_URL}api/v1/revenue-drivers?cohortId=${cohortId}`
+    );
     const responseData = await res.json();
     return responseData;
   } catch (error) {
@@ -24,7 +39,22 @@ export const getAllRevenueShareDrivers = async (): Promise<
   RevenueShareDriverResponse[]
 > => {
   try {
-    const res = await fetch(`${API_URL}api/v1/revenue-share-drivers`);
+    const res = await fetch(`${API_URL}api/v1/revenue-share-drivers/default`);
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getAllRevenueShareDriversByCohortId = async (
+  cohortId: number
+): Promise<RevenueShareDriverResponse[]> => {
+  try {
+    const res = await fetch(
+      `${API_URL}api/v1/revenue-share-drivers?cohortId=${cohortId}`
+    );
     const responseData = await res.json();
     return responseData;
   } catch (error) {

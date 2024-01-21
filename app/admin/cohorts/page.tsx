@@ -2,8 +2,7 @@
 
 import { CohortResponse, CohortType } from "@/types/types";
 import CohortClient from "./components/client";
-import { useEffect, useState } from "react";
-// import { format } from "date-fns";
+import { useEffect, useMemo, useState } from "react";
 import { getAllCohorts } from "@/actions/cohorts-actions";
 
 const Page = () => {
@@ -17,7 +16,12 @@ const Page = () => {
       try {
         setLoading(true);
         const res = await getAllCohorts();
-        setCohorts(res);
+        // Check if the response is an array before mapping
+        if (Array.isArray(res)) {
+          setCohorts(res);
+        } else {
+          throw new Error("Invalid data format: expected an array");
+        }
       } catch (error) {
         // @ts-ignore
         setError(error);
@@ -25,20 +29,20 @@ const Page = () => {
         setLoading(false);
       }
     };
+
     fetchData();
   }, [updated]);
 
-  const formattedclients: CohortType[] = cohorts.map((item) => ({
-    id: item.id,
-    name: item.name,
-    description: item.description,
-    maxFacilityTerm: item.maxFacilityTerm,
-    payoffMonth: item.payoffMonth.month,
-    revenueProjectionType: item.revenueProjectionType.type,
-    revenueShareType: item.revenueShareType.type,
-    createdDate: item.createdDate,
-    updatedAt: item.updatedAt,
-  }));
+  const formattedclients = useMemo(() => {
+    return cohorts.map((item) => ({
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      maxFacilityTerm: item.maxFacilityTerm,
+      createdDate: item.createdDate,
+      updatedAt: item.updatedAt,
+    }));
+  }, [cohorts]);
   return (
     <div>
       <CohortClient data={formattedclients} />

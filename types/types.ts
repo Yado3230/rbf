@@ -22,30 +22,34 @@ export interface Login {
 
 export interface CapTableResponse {
   id: number;
-  month: string;
-  fixedRevenueShareRate: string;
-  variableRevenueShareRate: string;
+  month: number;
+  fixedRevenueShareRate: number;
+  variableRevenueShareRate: number;
   createdDate: Date;
+  cohortId?: number;
 }
 
 export interface CapTableRequest {
-  month: string;
-  fixedRevenueShareRate: string;
-  variableRevenueShareRate: string;
+  month: number;
+  fixedRevenueShareRate: number;
+  variableRevenueShareRate: number;
+  cohortId?: number;
 }
 
 export interface RevenueDriverResponse {
   id: number;
   description: string;
-  endingMonth: string;
-  growthRate: string;
+  endingMonth: number;
+  growthRate: number;
   createdDate: Date;
+  cohortId?: number;
 }
 
 export interface RevenueDriverRequest {
   description: string;
-  endingMonth: string;
-  growthRate: string;
+  endingMonth: number;
+  growthRate: number;
+  cohortId?: number;
 }
 
 export interface RevenueShareDriverResponse {
@@ -56,6 +60,7 @@ export interface RevenueShareDriverResponse {
   createdDate: Date;
   variableTypePhase: number;
   months: number;
+  cohortId?: number;
 }
 
 export interface RevenueShareDriverRequest {
@@ -64,56 +69,64 @@ export interface RevenueShareDriverRequest {
   receiptsRate: number;
   variableTypePhase: number;
   months: number;
+  cohortId?: number;
 }
 
 export interface RevenueProjectionTypeRequest {
   type: string;
+  cohortId?: number;
 }
 
 export interface RevenueProjectionTypeResponse {
   id: number;
   type: string;
+  cohortId?: number;
   createdDate: Date;
 }
 
 export interface RevenueShareTypeResponse {
   id: number;
   type: string;
+  cohortId?: number;
   createdDate: Date;
 }
 
 export interface RevenueShareTypeRequest {
   type: string;
+  cohortId?: number;
 }
 
 export interface RiskResponse {
   id: number;
   type: string;
-  percentage: string;
+  percentage: number;
   createdDate: Date;
+  cohortId?: number;
 }
 
 export interface RiskRequest {
   type: string;
+  percentage: number;
+  cohortId?: number;
 }
 
 export interface CohortRequest {
   name: string;
   description: string;
-  maxFacilityTerm: string;
-  payoffMonthId: number;
-  revenueProjectionTypeId: number;
-  revenueShareTypeId: number;
+  maxFacilityTerm: number;
 }
 
 export interface CohortResponse {
   id: number;
   name: string;
   description: string;
-  maxFacilityTerm: string;
-  payoffMonth: CapTableResponse;
-  revenueProjectionType: RevenueProjectionTypeResponse;
-  revenueShareType: RevenueShareTypeResponse;
+  maxFacilityTerm: number;
+  payoffMonths: CapTableResponse[];
+  revenueDrivers: RevenueDriverResponse[];
+  revenueShareDrivers: RevenueShareDriverResponse[];
+  revenueShareTypes: RevenueShareTypeResponse[];
+  revenueProjectionTypes: RevenueProjectionTypeResponse[];
+  risks: RiskResponse[];
   createdDate: Date;
   updatedAt: Date;
 }
@@ -122,10 +135,7 @@ export interface CohortType {
   id: number;
   name: string;
   description: string;
-  maxFacilityTerm: string;
-  payoffMonth: string;
-  revenueProjectionType: string;
-  revenueShareType: string;
+  maxFacilityTerm: number;
   createdDate: Date;
   updatedAt: Date;
 }

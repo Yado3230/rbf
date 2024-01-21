@@ -24,6 +24,7 @@ const formSchema = z.object({
   description: z.string().min(1).max(50),
   endingMonth: z.coerce.number().min(1).max(50),
   growthRate: z.coerce.number().min(1).max(50),
+  cohortId: z.coerce.number().optional(),
 });
 
 type RevenueDriversFormProps = {
@@ -33,6 +34,7 @@ type RevenueDriversFormProps = {
   setLoading(loading: boolean): void;
   setAddNew(newState: string): void;
   revenueDriver: RevenueDriverResponse | undefined;
+  cohortId: number;
 };
 
 const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
@@ -42,6 +44,7 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   setUpdated,
   setLoading,
   loading,
+  cohortId,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,11 +53,13 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
           description: revenueDriver.description,
           endingMonth: revenueDriver.endingMonth,
           growthRate: revenueDriver.growthRate,
+          cohortId: revenueDriver.cohortId,
         }
       : {
           description: "",
           endingMonth: 0,
           growthRate: 0,
+          cohortId: cohortId
         },
   });
 

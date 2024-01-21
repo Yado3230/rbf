@@ -1,7 +1,7 @@
 import {
-  createRevenueDriver,
-  deleteRevenueDriver,
-  editRevenueDriver,
+  createRevenueShareDriver,
+  deleteRevenueShareDriver,
+  editRevenueShareDriver,
 } from "@/actions/drivers-action";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RevenueDriverResponse } from "@/types/types";
+import { RevenueShareDriverResponse } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Trash, X } from "lucide-react";
 import React, { FC, useState } from "react";
@@ -22,39 +22,50 @@ import { z } from "zod";
 
 const formSchema = z.object({
   description: z.string().min(1).max(50),
-  endingMonth: z.coerce.number().min(1).max(50),
-  growthRate: z.coerce.number().min(1).max(50),
+  type: z.string().min(1).max(50),
+  variableTypePhase: z.coerce.number().max(50),
+  months: z.coerce.number().max(50),
+  receiptsRate: z.coerce.number().min(1).max(50),
+  cohortId: z.coerce.number().optional(),
 });
 
-type RevenueDriversFormProps = {
+type RevenueShareDriversFormProps = {
   updated: boolean;
   loading: boolean;
   setUpdated(updated: boolean): void;
   setLoading(loading: boolean): void;
   setAddNew(newState: string): void;
-  revenueDriver: RevenueDriverResponse | undefined;
+  revenueShareDriver: RevenueShareDriverResponse | undefined;
+  cohortId: number;
 };
 
-const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
+const RevenueShareDriversForm: FC<RevenueShareDriversFormProps> = ({
   setAddNew,
-  revenueDriver,
+  revenueShareDriver,
   updated,
   setUpdated,
   setLoading,
   loading,
+  cohortId,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: revenueDriver
+    defaultValues: revenueShareDriver
       ? {
-          description: revenueDriver.description,
-          endingMonth: revenueDriver.endingMonth,
-          growthRate: revenueDriver.growthRate,
+          description: revenueShareDriver.description,
+          type: revenueShareDriver.type,
+          variableTypePhase: revenueShareDriver.variableTypePhase,
+          months: revenueShareDriver.months,
+          receiptsRate: revenueShareDriver.receiptsRate,
+          cohortId: revenueShareDriver.cohortId,
         }
       : {
           description: "",
-          endingMonth: 0,
-          growthRate: 0,
+          type: "",
+          variableTypePhase: 0,
+          months: 0,
+          receiptsRate: 0,
+          cohortId: cohortId,
         },
   });
 
@@ -62,11 +73,13 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
     console.log(values);
     try {
       setLoading(true);
-      revenueDriver
-        ? await editRevenueDriver(values, revenueDriver.id)
-        : await createRevenueDriver(values);
+      revenueShareDriver
+        ? await editRevenueShareDriver(values, revenueShareDriver.id)
+        : await createRevenueShareDriver(values);
       setUpdated(!updated);
-      toast.success(revenueDriver ? "Updated" : "Revenue Driver Created");
+      toast.success(
+        revenueShareDriver ? "Updated" : "Revenue Share Driver Created"
+      );
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -78,9 +91,10 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      revenueDriver && (await deleteRevenueDriver(revenueDriver.id));
+      revenueShareDriver &&
+        (await deleteRevenueShareDriver(revenueShareDriver.id));
       setUpdated(!updated);
-      toast.success(revenueDriver ? "Updated" : "Removed");
+      toast.success(revenueShareDriver ? "Updated" : "Removed");
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -94,7 +108,7 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-1 space-x-2 w-full">
-            <div className="grid grid-cols-3 gap-2 w-full">
+            <div className="grid grid-cols-5 gap-2 w-full">
               <FormField
                 control={form.control}
                 name="description"
@@ -109,13 +123,25 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
               />
               <FormField
                 control={form.control}
-                name="endingMonth"
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Type" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="variableTypePhase"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Ending Month"
+                        placeholder="Variable Type Phase"
                         {...field}
                       />
                     </FormControl>
@@ -125,13 +151,25 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
               />
               <FormField
                 control={form.control}
-                name="growthRate"
+                name="months"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input type="number" placeholder="Months" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="receiptsRate"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Growth Rate"
+                        placeholder="Receipt Rate"
                         {...field}
                       />
                     </FormControl>
@@ -148,7 +186,7 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             >
               <Check className="h-4 w-4" />
             </Button>
-            {revenueDriver && (
+            {revenueShareDriver && (
               <Button
                 size="icon"
                 disabled={loading}
@@ -161,9 +199,9 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             )}
             <Button
               size="icon"
-              variant="outline"
               type="button"
               disabled={loading}
+              variant="outline"
               onClick={() => setAddNew("")}
             >
               <X className="h-4 w-4" />
@@ -175,4 +213,4 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   );
 };
 
-export default RevenueDriversForm;
+export default RevenueShareDriversForm;

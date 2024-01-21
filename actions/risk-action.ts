@@ -4,7 +4,20 @@ const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getAllRisks = async (): Promise<RiskResponse[]> => {
   try {
-    const res = await fetch(`${API_URL}api/v1/risks`);
+    const res = await fetch(`${API_URL}api/v1/risks/default`);
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getAllRisksByCohortId = async (
+  cohortId: number
+): Promise<RiskResponse[]> => {
+  try {
+    const res = await fetch(`${API_URL}api/v1/risks?cohortId=${cohortId}`);
     const responseData = await res.json();
     return responseData;
   } catch (error) {

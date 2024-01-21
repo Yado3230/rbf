@@ -1,8 +1,8 @@
 import {
-  createRevenueDriver,
-  deleteRevenueDriver,
-  editRevenueDriver,
-} from "@/actions/drivers-action";
+  createRevenueProjectionType,
+  deleteRevenueProjectionType,
+  editRevenueProjectionType,
+} from "@/actions/types-action";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RevenueDriverResponse } from "@/types/types";
+import { RevenueProjectionTypeResponse } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Trash, X } from "lucide-react";
 import React, { FC, useState } from "react";
@@ -21,40 +21,39 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 const formSchema = z.object({
-  description: z.string().min(1).max(50),
-  endingMonth: z.coerce.number().min(1).max(50),
-  growthRate: z.coerce.number().min(1).max(50),
+  type: z.string().min(1).max(50),
+  cohortId: z.coerce.number().optional(),
 });
 
-type RevenueDriversFormProps = {
+type ProjectionTypeFormProps = {
   updated: boolean;
   loading: boolean;
   setUpdated(updated: boolean): void;
   setLoading(loading: boolean): void;
   setAddNew(newState: string): void;
-  revenueDriver: RevenueDriverResponse | undefined;
+  revenueProjectionType: RevenueProjectionTypeResponse | undefined;
+  cohortId: number;
 };
 
-const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
+const ProjectionTypeForm: FC<ProjectionTypeFormProps> = ({
   setAddNew,
-  revenueDriver,
+  revenueProjectionType,
   updated,
   setUpdated,
   setLoading,
   loading,
+  cohortId,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: revenueDriver
+    defaultValues: revenueProjectionType
       ? {
-          description: revenueDriver.description,
-          endingMonth: revenueDriver.endingMonth,
-          growthRate: revenueDriver.growthRate,
+          type: revenueProjectionType.type,
+          cohortId: revenueProjectionType.cohortId,
         }
       : {
-          description: "",
-          endingMonth: 0,
-          growthRate: 0,
+          type: "",
+          cohortId: cohortId,
         },
   });
 
@@ -62,11 +61,13 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
     console.log(values);
     try {
       setLoading(true);
-      revenueDriver
-        ? await editRevenueDriver(values, revenueDriver.id)
-        : await createRevenueDriver(values);
+      revenueProjectionType
+        ? await editRevenueProjectionType(values, revenueProjectionType.id)
+        : await createRevenueProjectionType(values);
       setUpdated(!updated);
-      toast.success(revenueDriver ? "Updated" : "Revenue Driver Created");
+      toast.success(
+        revenueProjectionType ? "Updated" : "Revenue Projection Type Created"
+      );
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -78,9 +79,10 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      revenueDriver && (await deleteRevenueDriver(revenueDriver.id));
+      revenueProjectionType &&
+        (await deleteRevenueProjectionType(revenueProjectionType.id));
       setUpdated(!updated);
-      toast.success(revenueDriver ? "Updated" : "Removed");
+      toast.success(revenueProjectionType ? "Updated" : "Removed");
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -94,46 +96,14 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-1 space-x-2 w-full">
-            <div className="grid grid-cols-3 gap-2 w-full">
+            <div className="grid gap-2 w-full">
               <FormField
                 control={form.control}
-                name="description"
+                name="type"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Description" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="endingMonth"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Ending Month"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="growthRate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Growth Rate"
-                        {...field}
-                      />
+                      <Input placeholder="Projection Type" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -148,7 +118,7 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             >
               <Check className="h-4 w-4" />
             </Button>
-            {revenueDriver && (
+            {revenueProjectionType && (
               <Button
                 size="icon"
                 disabled={loading}
@@ -161,9 +131,9 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             )}
             <Button
               size="icon"
-              variant="outline"
               type="button"
               disabled={loading}
+              variant="outline"
               onClick={() => setAddNew("")}
             >
               <X className="h-4 w-4" />
@@ -175,4 +145,4 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   );
 };
 
-export default RevenueDriversForm;
+export default ProjectionTypeForm;

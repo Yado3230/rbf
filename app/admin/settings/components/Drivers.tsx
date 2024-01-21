@@ -20,7 +20,7 @@ import {
   getAllRevenueShareDrivers,
 } from "@/actions/drivers-action";
 
-const CapTables = () => {
+const Drivers = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenShare, setIsOpenShare] = useState(true);
   const [addNew, setAddNew] = useState("");
@@ -225,4 +225,4 @@ const CapTables = () => {
   );
 };
 
-export default CapTables;
+export default Drivers;

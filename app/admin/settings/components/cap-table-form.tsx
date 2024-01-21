@@ -22,9 +22,9 @@ import { Button } from "@/components/ui/button";
 import { Check, Trash, X } from "lucide-react";
 
 const formSchema = z.object({
-  month: z.string().min(1).max(50),
-  fixedRevenueShareRate: z.string().min(1).max(50),
-  variableRevenueShareRate: z.string().min(1).max(50),
+  month: z.coerce.number().min(1).max(50),
+  fixedRevenueShareRate: z.coerce.number().min(1).max(50),
+  variableRevenueShareRate: z.coerce.number().min(1).max(50),
 });
 
 type CapTableFromProps = {
@@ -53,9 +53,9 @@ const CapTableFrom: FC<CapTableFromProps> = ({
           variableRevenueShareRate: capTable.variableRevenueShareRate,
         }
       : {
-          month: "",
-          fixedRevenueShareRate: "",
-          variableRevenueShareRate: "",
+          month: 0,
+          fixedRevenueShareRate: 0,
+          variableRevenueShareRate: 0,
         },
   });
 
@@ -102,7 +102,7 @@ const CapTableFrom: FC<CapTableFromProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Month" {...field} />
+                      <Input type="number" placeholder="Month" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -115,6 +115,7 @@ const CapTableFrom: FC<CapTableFromProps> = ({
                   <FormItem>
                     <FormControl>
                       <Input
+                        type="number"
                         placeholder="Fixed Revenue Share Rate"
                         {...field}
                       />
@@ -130,6 +131,7 @@ const CapTableFrom: FC<CapTableFromProps> = ({
                   <FormItem>
                     <FormControl>
                       <Input
+                        type="number"
                         placeholder="Variable Revenue Share Rate"
                         {...field}
                       />

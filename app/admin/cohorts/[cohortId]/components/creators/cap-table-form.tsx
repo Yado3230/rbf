@@ -1,9 +1,6 @@
-import {
-  createRevenueDriver,
-  deleteRevenueDriver,
-  editRevenueDriver,
-} from "@/actions/drivers-action";
-import { Button } from "@/components/ui/button";
+import React, { FC } from "react";
+
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -11,50 +8,59 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { RevenueDriverResponse } from "@/types/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Trash, X } from "lucide-react";
-import React, { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  createReturnCapTable,
+  deleteReturnCapTable,
+  editReturnCapTable,
+} from "@/actions/cap-table-actions";
+import { CapTableResponse } from "@/types/types";
+import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { Check, Trash, X } from "lucide-react";
 
 const formSchema = z.object({
-  description: z.string().min(1).max(50),
-  endingMonth: z.coerce.number().min(1).max(50),
-  growthRate: z.coerce.number().min(1).max(50),
+  month: z.coerce.number().min(1).max(50),
+  fixedRevenueShareRate: z.coerce.number().min(1).max(50),
+  variableRevenueShareRate: z.coerce.number().min(1).max(50),
+  cohortId: z.coerce.number().optional(),
 });
 
-type RevenueDriversFormProps = {
+type CapTableFromProps = {
   updated: boolean;
   loading: boolean;
   setUpdated(updated: boolean): void;
   setLoading(loading: boolean): void;
   setAddNew(newState: string): void;
-  revenueDriver: RevenueDriverResponse | undefined;
+  capTable: CapTableResponse | undefined;
+  cohortId: number;
 };
 
-const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
+const CapTableFrom: FC<CapTableFromProps> = ({
   setAddNew,
-  revenueDriver,
+  capTable,
   updated,
   setUpdated,
   setLoading,
   loading,
+  cohortId,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: revenueDriver
+    defaultValues: capTable
       ? {
-          description: revenueDriver.description,
-          endingMonth: revenueDriver.endingMonth,
-          growthRate: revenueDriver.growthRate,
+          month: capTable.month,
+          fixedRevenueShareRate: capTable.fixedRevenueShareRate,
+          variableRevenueShareRate: capTable.variableRevenueShareRate,
+          cohortId: cohortId,
         }
       : {
-          description: "",
-          endingMonth: 0,
-          growthRate: 0,
+          month: 0,
+          fixedRevenueShareRate: 0,
+          variableRevenueShareRate: 0,
+          cohortId: cohortId,
         },
   });
 
@@ -62,11 +68,11 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
     console.log(values);
     try {
       setLoading(true);
-      revenueDriver
-        ? await editRevenueDriver(values, revenueDriver.id)
-        : await createRevenueDriver(values);
+      capTable
+        ? await editReturnCapTable(values, capTable.id)
+        : await createReturnCapTable(values);
       setUpdated(!updated);
-      toast.success(revenueDriver ? "Updated" : "Revenue Driver Created");
+      toast.success(capTable ? "Updated" : "Return Cap Table Created");
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -78,9 +84,9 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      revenueDriver && (await deleteRevenueDriver(revenueDriver.id));
+      capTable && (await deleteReturnCapTable(capTable.id));
       setUpdated(!updated);
-      toast.success(revenueDriver ? "Updated" : "Removed");
+      toast.success(capTable ? "Updated" : "Removed");
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -97,11 +103,11 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             <div className="grid grid-cols-3 gap-2 w-full">
               <FormField
                 control={form.control}
-                name="description"
+                name="month"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Description" {...field} />
+                      <Input type="number" placeholder="Month" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,13 +115,13 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
               />
               <FormField
                 control={form.control}
-                name="endingMonth"
+                name="fixedRevenueShareRate"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Ending Month"
+                        placeholder="Fixed Revenue Share Rate"
                         {...field}
                       />
                     </FormControl>
@@ -125,13 +131,13 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
               />
               <FormField
                 control={form.control}
-                name="growthRate"
+                name="variableRevenueShareRate"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Growth Rate"
+                        placeholder="Variable Revenue Share Rate"
                         {...field}
                       />
                     </FormControl>
@@ -148,7 +154,7 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             >
               <Check className="h-4 w-4" />
             </Button>
-            {revenueDriver && (
+            {capTable && (
               <Button
                 size="icon"
                 disabled={loading}
@@ -161,9 +167,9 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
             )}
             <Button
               size="icon"
-              variant="outline"
-              type="button"
               disabled={loading}
+              type="button"
+              variant="outline"
               onClick={() => setAddNew("")}
             >
               <X className="h-4 w-4" />
@@ -175,4 +181,4 @@ const RevenueDriversForm: FC<RevenueDriversFormProps> = ({
   );
 };
 
-export default RevenueDriversForm;
+export default CapTableFrom;
