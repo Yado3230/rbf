@@ -87,10 +87,10 @@ const Risks: FC<RisksProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid grid-cols-2 gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Risk Type
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Percentage
               </div>
             </div>
@@ -99,15 +99,15 @@ const Risks: FC<RisksProps> = ({ cohortId }) => {
             {risks.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid grid-cols-2 gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.type}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.percentage}
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   disabled={loading}
                   onClick={() => AddFromDefault(item)}
@@ -136,10 +136,10 @@ const Risks: FC<RisksProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid grid-cols-2 gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Risk Type
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Percentage
               </div>
             </div>
@@ -159,15 +159,15 @@ const Risks: FC<RisksProps> = ({ cohortId }) => {
             {risksByCohortId.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid grid-cols-2 gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.type}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.percentage}
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   disabled={loading}
                   onClick={() => {

@@ -1,4 +1,3 @@
-import { editRevenueShareDriver } from "@/actions/drivers-action";
 import {
   createRevenueShareType,
   deleteRevenueShareType,
@@ -16,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { RevenueShareTypeResponse } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Trash, X } from "lucide-react";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";

@@ -8,13 +8,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Backpack, Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 // import axios from "axios";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { CohortType } from "@/types/types";
 import { useRouter } from "next/navigation";
+import { deleteCohort } from "@/actions/cohorts-actions";
 
 interface CellActionProps {
   data: CohortType;
@@ -22,7 +23,7 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("client ID copied to the clipboard");
+    toast.success("Cohort ID copied to the clipboard");
   };
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -31,10 +32,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
+      await deleteCohort(Number(data?.id));
       router.refresh();
-      toast.success("Account deleted.");
+      router.push(`/admin/cohorts`);
+      toast.success("Cohort deleted.");
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
       setOpen(false);

@@ -1,5 +1,5 @@
 // "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { CohortResponse } from "@/types/types";
-import { createCohort, deleteCohort } from "@/actions/cohorts-actions";
+import {
+  createCohort,
+  deleteCohort,
+  editCohort,
+} from "@/actions/cohorts-actions";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import {
@@ -35,19 +39,19 @@ const steps = [
   },
   {
     id: "2",
-    name: "Cap Table",
-  },
-  {
-    id: "3",
-    name: "Drivers",
-  },
-  {
-    id: "4",
     name: "Types",
   },
   {
-    id: "5",
+    id: "3",
     name: "Risks",
+  },
+  {
+    id: "4",
+    name: "Cap Table",
+  },
+  {
+    id: "5",
+    name: "Drivers",
   },
   {
     id: "6",
@@ -57,7 +61,7 @@ const steps = [
 
 const formSchema = z.object({
   name: z.string().min(1),
-  description: z.string().min(1).default(""),
+  description: z.string().min(1),
   maxFacilityTerm: z.coerce.number().min(1),
 });
 
@@ -73,6 +77,7 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [cohortId, setCohortId] = useState(0);
+
   const delta = currentStep - previousStep;
 
   const params = useParams();
@@ -81,7 +86,6 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
   const title = initialData?.id ? "Edit Cohort" : "Create Cohort";
   const description = initialData?.id ? "Edit a Cohort" : "Add a new Cohort";
   const toastMessage = initialData?.id ? "Cohort updated." : "Cohort created";
-  const action = initialData?.id ? "Save changes" : "Create";
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -98,13 +102,26 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
         },
   });
 
+  useEffect(() => {
+    if (initialData) {
+      form.reset({
+        name: initialData.name,
+        maxFacilityTerm: initialData.maxFacilityTerm,
+        description: initialData.description,
+      });
+      setCohortId(initialData.id);
+    }
+  }, [initialData]);
+
   const makeApiRequest = async (data: LevelFormValues) => {
+    console.log(initialData?.id);
     try {
       setLoading(true);
-      const res = await createCohort(data);
-      console.log(res);
+      const res = initialData?.id
+        ? await editCohort(data, initialData?.id)
+        : await createCohort(data);
       setCohortId(res.id);
-      toast.success("Cohort created successfully");
+      toast.success(toastMessage);
     } catch (error) {
       console.error("Error making API request", error);
       toast.error("Something went wrong!");
@@ -124,17 +141,14 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
           if (!cohortId) {
             await makeApiRequest(form.getValues());
           }
-          // You may want to update state or do something else after the API request
         }
-
-        // Move to the next step
         setPreviousStep((step) => step + 1);
         setCurrentStep((step) => step + 1);
       }
     } catch (error) {
       console.error("Error during form validation", error);
     }
-  }, [form, currentStep]);
+  }, [form, currentStep, initialData]);
 
   const prev = useCallback(() => {
     if (currentStep > 0) {
@@ -146,7 +160,7 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await deleteCohort(params.colorId.toString());
+      await deleteCohort(Number(initialData?.id));
       router.refresh();
       router.push(`/admin/cohorts`);
       toast.success("Cohort deleted.");
@@ -277,7 +291,7 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
           // </motion.div>
         )}
 
-        {currentStep === 1 && (
+        {currentStep === 3 && (
           <div className="mt-10">
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
@@ -289,7 +303,7 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
           </div>
         )}
 
-        {currentStep === 2 && (
+        {currentStep === 4 && (
           <div className="mt-10">
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
@@ -301,7 +315,7 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
           </div>
         )}
 
-        {currentStep === 3 && (
+        {currentStep === 1 && (
           <div className="mt-10">
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
@@ -312,7 +326,7 @@ export const MainForm: React.FC<LevelFormProps> = ({ initialData }) => {
             </motion.div>
           </div>
         )}
-        {currentStep === 4 && (
+        {currentStep === 2 && (
           <div className="mt-10">
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}

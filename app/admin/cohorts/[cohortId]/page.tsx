@@ -13,11 +13,11 @@ const SizePage = async ({ params }: { params: { cohortId: string } }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getCohort(params.cohortId.toString());
-        if (Array.isArray(res)) {
+        const res = await getCohort(Number(params.cohortId));
+        if (res && typeof res === "object") {
           setCohort(res);
         } else {
-          throw new Error("Invalid data format: expected an array");
+          console.error("Invalid data format received");
         }
       } catch (error) {
         // @ts-ignore
@@ -26,9 +26,8 @@ const SizePage = async ({ params }: { params: { cohortId: string } }) => {
         setLoading(false);
       }
     };
-
     fetchData();
-  }, [1000131333416]);
+  }, []);
 
   return (
     <div className="flex-col shadow">

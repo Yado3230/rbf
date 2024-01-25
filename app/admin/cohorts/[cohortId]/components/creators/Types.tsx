@@ -131,7 +131,7 @@ const Types: FC<TypeProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Projection Type
               </div>
             </div>
@@ -140,12 +140,12 @@ const Types: FC<TypeProps> = ({ cohortId }) => {
             {revenueProjectionTypes.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.type}
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   onClick={() => AddRevenueProjectionFromDefault(item)}
                 >
@@ -173,7 +173,7 @@ const Types: FC<TypeProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Share Type
               </div>
             </div>
@@ -182,12 +182,12 @@ const Types: FC<TypeProps> = ({ cohortId }) => {
             {revenueShareTypes.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.type}
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   onClick={() => AddShareTypeFromDefault(item)}
                 >
@@ -215,12 +215,12 @@ const Types: FC<TypeProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Projection Type
               </div>
             </div>
             <Button
-              size="icon"
+              size="sm"
               className="bg-cyan-500"
               onClick={() => {
                 setRevenueProjectionType(undefined);
@@ -234,12 +234,12 @@ const Types: FC<TypeProps> = ({ cohortId }) => {
             {revenueProjectionTypesByCohortId.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.type}
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   onClick={() => {
                     setRevenueProjectionType(item);
@@ -279,12 +279,12 @@ const Types: FC<TypeProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Share Type
               </div>
             </div>
             <Button
-              size="icon"
+              size="sm"
               className="bg-cyan-500"
               onClick={() => {
                 setRevenueShareType(undefined);
@@ -298,15 +298,15 @@ const Types: FC<TypeProps> = ({ cohortId }) => {
             {revenueShareTypesByCohortId.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.type}
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   onClick={() => {
-                    setRevenueProjectionType(item);
+                    setRevenueShareType(item);
                     setAddNew("shareType");
                   }}
                 >

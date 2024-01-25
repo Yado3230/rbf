@@ -136,13 +136,13 @@ const Drivers: FC<DriversProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid grid-cols-3 gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Description
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Ending Month
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Growth Rate
               </div>
             </div>
@@ -151,18 +151,18 @@ const Drivers: FC<DriversProps> = ({ cohortId }) => {
             {revenueDrivers.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid grid-cols-3 gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.description}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.endingMonth} Months
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.growthRate}%
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   onClick={() => AddRevenueDriverFromDefault(item)}
                 >
@@ -190,16 +190,16 @@ const Drivers: FC<DriversProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid grid-cols-5 gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Description
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Type
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Variable Type Phase
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Months
               </div>
               <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
@@ -211,24 +211,24 @@ const Drivers: FC<DriversProps> = ({ cohortId }) => {
             {revenueShareDrivers.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid grid-cols-5 gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.description}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.type}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.variableTypePhase}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.months} {item.months === 0 ? "" : "Months"}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.receiptsRate}%
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   onClick={() => AddRevenueShareDriverFromDefault(item)}
                 >
@@ -256,18 +256,18 @@ const Drivers: FC<DriversProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid grid-cols-3 gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Description
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Ending Month
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Growth Rate
               </div>
             </div>
             <Button
-              size="icon"
+              size="sm"
               className="bg-cyan-500"
               onClick={() => {
                 setRevenueDriver(undefined);
@@ -281,18 +281,18 @@ const Drivers: FC<DriversProps> = ({ cohortId }) => {
             {revenueDriversByCohortId.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid grid-cols-3 gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.description}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.endingMonth} Months
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.growthRate}%
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   onClick={() => {
                     setRevenueDriver(item);
@@ -334,24 +334,24 @@ const Drivers: FC<DriversProps> = ({ cohortId }) => {
           </div>
           <div className="flex space-x-2">
             <div className="grid grid-cols-5 gap-2 w-full">
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Description
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Type
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Variable Type Phase
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Months
               </div>
-              <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+              <div className="rounded-md border px-4 py-1 h-8 font-semibold bg-gray-100 text-sm shadow-sm">
                 Rate
               </div>
             </div>
             <Button
-              size="icon"
+              size="sm"
               className="bg-cyan-500"
               onClick={() => {
                 setRevenueShareDriver(undefined);
@@ -365,24 +365,24 @@ const Drivers: FC<DriversProps> = ({ cohortId }) => {
             {revenueShareDriversByCohortId.map((item) => (
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid grid-cols-5 gap-2 w-full">
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.description}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.type}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.variableTypePhase}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.months} {item.months === 0 ? "" : "Months"}
                   </div>
-                  <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+                  <div className="rounded-md border px-4 py-1 h-8 font-mono text-sm shadow-sm">
                     {item.receiptsRate}%
                   </div>
                 </div>
                 <Button
-                  size="icon"
+                  size="sm"
                   variant="outline"
                   onClick={() => {
                     setRevenueShareDriver(item);

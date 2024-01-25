@@ -163,7 +163,7 @@ const Types = () => {
                 size="icon"
                 variant="outline"
                 onClick={() => {
-                  setRevenueProjectionType(item);
+                  setRevenueShareType(item);
                   setAddNew("shareType");
                 }}
               >
