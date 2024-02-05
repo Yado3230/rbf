@@ -7,7 +7,10 @@ import {
   Calculator,
   ChevronDown,
   ChevronUp,
+  GitBranchPlusIcon,
+  GitGraph,
   LayoutDashboard,
+  LucideGitGraph,
   Settings,
   User2Icon,
   Users,
@@ -134,6 +137,47 @@ export const MainNav: FC<SidebarProps> = ({
       ),
     },
     {
+      href: `/admin/forecast`,
+      label: "Forecast",
+      active: pathname === `/admin/forecast`,
+      items: [
+        {
+          href: `/admin/forecast/rbfforecast`,
+          label: "RBF Forecast (Prophet)",
+          active: pathname === `/admin/forecast/rbfforecast`,
+          authorized: true,
+          icon: (
+            <GitBranchPlusIcon
+              size={15}
+              color={`${
+                pathname === `/admin/forecast/rbfforecast` ? "#fff" : "#707E94"
+              }`}
+            />
+          ),
+        },
+        {
+          href: `/admin/forecast/bnplforecast`,
+          label: "BNPL Forecast (Prophet)",
+          active: pathname === `/admin/forecast/bnplforecast`,
+          authorized: true,
+          icon: (
+            <GitBranchPlusIcon
+              size={15}
+              color={`${
+                pathname === `/admin/forecast/bnplforecast` ? "#fff" : "#707E94"
+              }`}
+            />
+          ),
+        },
+      ],
+      icon: (
+        <GitBranchPlusIcon
+          size={15}
+          color={`${pathname === `/admin/calculator` ? "#fff" : "#707E94"}`}
+        />
+      ),
+    },
+    {
       href: `/admin/settings`,
       label: "Settings",
       active: pathname === `/admin/settings`,
@@ -221,9 +265,9 @@ export const MainNav: FC<SidebarProps> = ({
                   <span>
                     {route.items &&
                       (isOpen === route.label ? (
-                        <ChevronUp />
+                        <ChevronUp className="w-4 h-4" />
                       ) : (
-                        <ChevronDown />
+                        <ChevronDown className="w-4 h-4" />
                       ))}
                   </span>
                 </span>
@@ -243,7 +287,7 @@ export const MainNav: FC<SidebarProps> = ({
                     variant="outline"
                     size="sm"
                     className={cn(
-                      " w-full flex px-2 my-2 items-center justify-start border-none hover:text-cyan-500 rounded py-1 space-x-2",
+                      " w-full flex px-1 my-2 items-center justify-start border-none hover:text-cyan-500 rounded py-1 space-x-2",
                       route.active
                         ? "text-white bg-cyan-500 hover:text-white hover:bg-cyan-500"
                         : "text-muted-foreground"
@@ -258,7 +302,7 @@ export const MainNav: FC<SidebarProps> = ({
                     <Link
                       href={route.href}
                       className={cn(
-                        "text-base font-medium disabled transition-colors"
+                        "text-sm font-medium disabled transition-colors"
                       )}
                     >
                       {route.label}

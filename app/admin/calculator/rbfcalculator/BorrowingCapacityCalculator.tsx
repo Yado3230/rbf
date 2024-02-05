@@ -136,11 +136,6 @@ const BorrowingCapacityCalculator = () => {
         return a.variableTypePhase - b.variableTypePhase;
       };
 
-      // term
-      // initialMonthlyRevenue
-      // revenueHairCut
-      // early payoff month
-
       const calculatedReturnCap =
         revenueShareType.toLowerCase() === "fixed"
           ? cohort.payoffMonths.find((month) => month.month === payoffMonth)
@@ -226,21 +221,6 @@ const BorrowingCapacityCalculator = () => {
           console.warn(`No revenue driver found for month ${currentMonth}`);
         }
       }
-
-      // const calculatedMonthlyPayment =
-      //   revenueShareType.toLowerCase() === "fixed" &&
-      //   revenueShareDrivers.find((item) => item.type.toLowerCase() === "fixed")
-      //     ?.receiptsRate !== undefined
-      //     ? (Number(
-      //         revenueShareDrivers.find(
-      //           (item) => item.type.toLowerCase() === "fixed"
-      //         )?.receiptsRate
-      //       ) *
-      //         monthlyRevenue) /
-      //       100
-      //     : 0;
-
-      // setMonthlyPayment(calculatedMonthlyPayment);
     }
     setLoading(false);
   };
