@@ -1,10 +1,7 @@
 "use client";
 
 import { getAllCohorts, getCohort } from "@/actions/cohorts-actions";
-import {
-  getAllRevenueShareDrivers,
-  getAllRevenueShareDriversByCohortId,
-} from "@/actions/drivers-action";
+import { getAllRevenueShareDriversByCohortId } from "@/actions/drivers-action";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -117,7 +114,6 @@ const BorrowingCapacityCalculator = () => {
   const handleCalculateClick = () => {
     setLoading(true);
     if (cohort) {
-      // setMonthlyRevenueCalculatedArray([]);
       monthlyRevenueCalculatedArray.length = 0;
       const calculatedTerm = payoffMonth;
       setTerm(Number(calculatedTerm));
