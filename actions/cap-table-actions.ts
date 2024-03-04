@@ -18,7 +18,7 @@ export const getAllReturnCapTablesByCohortId = async (
 ): Promise<CapTableResponse[]> => {
   try {
     const res = await fetch(
-      `${API_URL}api/v1/payoff-months?cohortId=${cohortId}`
+      `${API_URL}api/v1/payoff-months/cohort/${cohortId}`
     );
     const responseData = await res.json();
     return responseData;
