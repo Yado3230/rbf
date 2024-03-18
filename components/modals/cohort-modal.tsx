@@ -39,10 +39,10 @@ import { createCohort } from "@/actions/cohorts-actions";
 const formSchema = z.object({
   name: z.string().min(1),
   description: z.string().default(""),
-  maxFacilityTerm: z.string().default(""),
-  payoffMonthId: z.number(),
-  revenueProjectionTypeId: z.number(),
-  revenueShareTypeId: z.number(),
+  maxFacilityTerm: z.coerce.number(),
+  payoffMonthId: z.coerce.number(),
+  revenueProjectionTypeId: z.coerce.number(),
+  revenueShareTypeId: z.coerce.number(),
 });
 
 export const CohortModal = () => {
@@ -77,7 +77,7 @@ export const CohortModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      maxFacilityTerm: "",
+      maxFacilityTerm: 0,
       description: "",
       payoffMonthId: 0,
       revenueProjectionTypeId: 0,

@@ -114,7 +114,7 @@ export const LevelForm: React.FC<LevelFormProps> = ({ initialData }) => {
     try {
       setLoading(true);
       if (initialData?.id) {
-        await editCohort(data, params.levelId.toString());
+        await editCohort(data, Number(params.levelId));
       } else {
         await createCohort(data);
       }
@@ -131,7 +131,7 @@ export const LevelForm: React.FC<LevelFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await deleteCohort(params.colorId.toString());
+      await deleteCohort(Number(params.colorId));
       router.refresh();
       router.push(`/admin/cohorts`);
       toast.success("Cohort deleted.");

@@ -242,8 +242,10 @@ const BorrowingCapacityCalculator = () => {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option selected>Select Cohort</option>
-            {cohorts.map((item) => (
-              <option value={item.id}>{item.name}</option>
+            {cohorts.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
             ))}
           </select>
         </div>
@@ -257,8 +259,10 @@ const BorrowingCapacityCalculator = () => {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option selected>Payoff Month</option>
-            {cohort?.payoffMonths?.map((item) => (
-              <option value={item.month}>{item.month}</option>
+            {cohort?.payoffMonths?.map((item, index) => (
+              <option key={index} value={item.month}>
+                {item.month}
+              </option>
             ))}
           </select>
         </div>
@@ -272,8 +276,10 @@ const BorrowingCapacityCalculator = () => {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option selected>Revenue Share Type</option>
-            {cohort?.revenueShareTypes?.map((item) => (
-              <option value={item.type}>{item.type}</option>
+            {cohort?.revenueShareTypes?.map((item, index) => (
+              <option key={index} value={item.type}>
+                {item.type}
+              </option>
             ))}
           </select>
         </div>
@@ -287,8 +293,10 @@ const BorrowingCapacityCalculator = () => {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option selected>Revenue Share Type</option>
-            {cohort?.revenueProjectionTypes?.map((item) => (
-              <option value={item.type}>{item.type}</option>
+            {cohort?.revenueProjectionTypes?.map((item, index) => (
+              <option key={index} value={item.type}>
+                {item.type}
+              </option>
             ))}
           </select>
         </div>
@@ -418,8 +426,8 @@ const BorrowingCapacityCalculator = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {monthlyRevenueCalculatedArray.map((invoice) => (
-                <TableRow key={invoice.monthlyRevenue}>
+              {monthlyRevenueCalculatedArray.map((invoice, index) => (
+                <TableRow key={index}>
                   <TableCell>Month {invoice.month}</TableCell>
                   <TableCell>{invoice.growthRate}%</TableCell>
                   <TableCell>{invoice.monthlyRevenue.toFixed(2)}</TableCell>

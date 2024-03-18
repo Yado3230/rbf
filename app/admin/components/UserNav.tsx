@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/app/api/auth/contexts/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +17,7 @@ import { useEffect, useState } from "react";
 
 export function UserNav() {
   const router = useRouter();
+  const { logout } = useAuth();
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
@@ -61,7 +63,12 @@ export function UserNav() {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              logout();
+              router.push("/");
+            }}
+          >
             Log out
             <DropdownMenuShortcut>⇧Q</DropdownMenuShortcut>
           </DropdownMenuItem>

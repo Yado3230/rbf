@@ -139,3 +139,23 @@ export interface CohortType {
   createdDate: Date;
   updatedAt: Date;
 }
+
+export interface UserRequest {
+  roleId: number | string;
+  fullName: string;
+  email: string;
+  password: string;
+}
+
+export interface UserResponse {
+  userId: number;
+  fullName: string;
+  email: string;
+  role: string;
+  status: string;
+  registeredBy: string;
+  lastLoggedIn: string;
+  registeredAt: string;
+  passwordChanged: boolean;
+  updatedAt: string;
+}

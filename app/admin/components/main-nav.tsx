@@ -228,9 +228,8 @@ export const MainNav: FC<SidebarProps> = ({
       >
         <div className="font-semibold opacity-50">Menu</div>
         {menuItems.map((route, index) => (
-          <div>
+          <div key={index}>
             <div
-              key={index}
               className={`${!route.authorized && "cursor-not-allowed"}`}
               title={`${!route.authorized && "Not Authorized"}`}
             >

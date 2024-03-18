@@ -4,7 +4,7 @@ import Sidebar from "@/app/admin/components/Sidebar";
 import Navbar from "@/app/admin/components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CohortModal } from "@/components/modals/cohort-modal";
+import { useAuth } from "../api/auth/contexts/AuthContext";
 
 export default function RootLayout({
   children,
@@ -13,13 +13,12 @@ export default function RootLayout({
 }) {
   const [mounted, setMounted] = useState(false);
   const [isOpened, setIsOpened] = useState(true);
-  const [passwordChanged, setPasswordChanged] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // const { accessToken } = useAuth();
+  const { accessToken } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -27,18 +26,10 @@ export default function RootLayout({
       return;
     }
 
-    // if (!accessToken) {
-    //   router.push("/");
-    // }
-  }, [mounted, router, passwordChanged]);
-
-  useEffect(() => {
-    const storedPasswordChanged =
-      (typeof window !== "undefined"
-        ? localStorage.getItem("passwordChanged")
-        : "") || "";
-    setPasswordChanged(storedPasswordChanged);
-  }, []);
+    if (!accessToken) {
+      router.push("/");
+    }
+  }, [mounted, router]);
 
   if (!mounted) {
     return null;

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ToasterProvider } from "@/providers/toast-provider";
 import { CohortModal } from "@/components/modals/cohort-modal";
+import { AuthProvider } from "./api/auth/contexts/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CohortModal />
-        <ToasterProvider />
-        <div>{children}</div>
+        <AuthProvider>
+          <CohortModal />
+          <ToasterProvider />
+          <div>{children}</div>
+        </AuthProvider>
       </body>
     </html>
   );
