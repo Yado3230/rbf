@@ -83,6 +83,20 @@ export const MainNav: FC<SidebarProps> = ({
             />
           ),
         },
+        {
+          href: `/admin/cohorts/agrocohorts`,
+          label: "Agro Cohorts",
+          active: pathname === `/admin/cohorts/agrocohorts`,
+          authorized: true,
+          icon: (
+            <Users2Icon
+              size={15}
+              color={`${
+                pathname === `/admin/cohorts/agrocohorts` ? "#fff" : "#707E94"
+              }`}
+            />
+          ),
+        },
       ],
       icon: (
         <Users
@@ -210,6 +224,20 @@ export const MainNav: FC<SidebarProps> = ({
             />
           ),
         },
+        {
+          href: `/admin/settings/agrocohorts`,
+          label: "Agro Settings",
+          active: pathname === `/admin/settings/agrocohorts`,
+          authorized: true,
+          icon: (
+            <Settings
+              size={15}
+              color={`${
+                pathname === `/admin/settings/agrocohorts` ? "#fff" : "#707E94"
+              }`}
+            />
+          ),
+        },
       ],
       authorized: true,
       icon: (
@@ -249,7 +277,7 @@ export const MainNav: FC<SidebarProps> = ({
                   if (!route.items) router.push(route.href);
                 }}
               >
-                <span className="w-full flex items-center justify-between">
+                <span className="flex items-center justify-between w-full">
                   <span className="flex items-center w-full space-x-2">
                     <span>{route?.icon}</span>
                     <Link
