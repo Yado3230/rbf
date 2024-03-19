@@ -14,6 +14,7 @@ import CapTableFrom from "./forms/land-size-form";
 import { FamilySizeModal } from "./modals/family-size";
 import { useFamilySizeModal } from "@/hooks/use-family-size-modal";
 import { AgeModal } from "./modals/age";
+import { useAgeModal } from "@/hooks/use-age-modal";
 
 export const Others = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,6 +26,8 @@ export const Others = () => {
   const [error, setError] = useState(null);
 
   const familysizemodal = useFamilySizeModal();
+  const agemodal = useAgeModal();
+  const distance = useDistance();
 
   return (
     <>
@@ -35,9 +38,9 @@ export const Others = () => {
         loading={loading}
       />
       <AgeModal
-        isOpen={familysizemodal.isOpen}
-        onClose={familysizemodal.onClose}
-        onConfirm={familysizemodal.onClose}
+        isOpen={agemodal.isOpen}
+        onClose={agemodal.onClose}
+        onConfirm={agemodal.onClose}
         loading={loading}
       />
       <FamilySizeModal
@@ -128,7 +131,7 @@ export const Others = () => {
                   size="icon"
                   className="bg-cyan-500"
                   disabled={loading}
-                  onClick={familysizemodal.onOpen}
+                  onClick={agemodal.onOpen}
                 >
                   <Plus className="w-4 h-4" />
                 </Button>
@@ -193,7 +196,7 @@ export const Others = () => {
                   size="icon"
                   className="bg-cyan-500"
                   disabled={loading}
-                  onClick={familysizemodal.onOpen}
+                  onClick={distance.onOpen}
                 >
                   <Plus className="w-4 h-4" />
                 </Button>
