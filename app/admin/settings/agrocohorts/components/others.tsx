@@ -15,6 +15,8 @@ import { FamilySizeModal } from "./modals/family-size";
 import { useFamilySizeModal } from "@/hooks/use-family-size-modal";
 import { AgeModal } from "./modals/age";
 import { useAgeModal } from "@/hooks/use-age-modal";
+import { useDistanceModal } from "@/hooks/use-distance-modal";
+import { DistanceModal } from "./modals/distance";
 
 export const Others = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -27,7 +29,7 @@ export const Others = () => {
 
   const familysizemodal = useFamilySizeModal();
   const agemodal = useAgeModal();
-  const distance = useDistance();
+  const distance = useDistanceModal();
 
   return (
     <>
@@ -43,10 +45,10 @@ export const Others = () => {
         onConfirm={agemodal.onClose}
         loading={loading}
       />
-      <FamilySizeModal
-        isOpen={familysizemodal.isOpen}
-        onClose={familysizemodal.onClose}
-        onConfirm={familysizemodal.onClose}
+      <DistanceModal
+        isOpen={distance.isOpen}
+        onClose={distance.onClose}
+        onConfirm={distance.onClose}
         loading={loading}
       />
       <div className="grid w-full gap-4">

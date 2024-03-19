@@ -5,7 +5,8 @@ import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { CapTableResponse } from "@/types/types";
 
-import FamilySizeFrom from "../forms/family-size-form";
+import FamilySizeFrom from "../forms/distance-form";
+import DistanceFrom from "../forms/distance-form";
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -14,7 +15,7 @@ interface AlertModalProps {
   loading: boolean;
 }
 
-export const FamilySizeModal: React.FC<AlertModalProps> = ({
+export const DistanceModal: React.FC<AlertModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
@@ -34,9 +35,9 @@ export const FamilySizeModal: React.FC<AlertModalProps> = ({
   if (!isMounted) return null;
 
   return (
-    <Modal title="Family Size" description="" isOpen={isOpen} onClose={onClose}>
+    <Modal title="Distance" description="" isOpen={isOpen} onClose={onClose}>
       <div className="">
-        <FamilySizeFrom
+        <DistanceFrom
           setAddNew={setAddNew}
           updated={updated}
           setUpdated={setUpdated}

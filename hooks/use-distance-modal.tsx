@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
-interface useFamilySizeModalStore {
+interface useDistanceModalStore {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
 
-export const useFamilySizeModal = create<useFamilySizeModalStore>((set) => ({
+export const useDistanceModal = create<useDistanceModalStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),

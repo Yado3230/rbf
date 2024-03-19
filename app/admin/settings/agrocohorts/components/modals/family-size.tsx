@@ -5,7 +5,7 @@ import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { CapTableResponse } from "@/types/types";
 
-import FamilySizeFrom from "../forms/family-size-form";
+import FamilySizeFrom from "../forms/distance-form";
 
 interface AlertModalProps {
   isOpen: boolean;

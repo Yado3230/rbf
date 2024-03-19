@@ -36,7 +36,7 @@ type CapTableFromProps = {
   capTable: CapTableResponse | undefined;
 };
 
-const FamilySizeFrom: FC<CapTableFromProps> = ({
+const DistanceFrom: FC<CapTableFromProps> = ({
   setAddNew,
   capTable,
   updated,
@@ -162,4 +162,4 @@ const FamilySizeFrom: FC<CapTableFromProps> = ({
   );
 };
 
-export default FamilySizeFrom;
+export default DistanceFrom;
