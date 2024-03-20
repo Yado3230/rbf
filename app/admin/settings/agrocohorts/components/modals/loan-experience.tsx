@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { CapTableResponse } from "@/types/types";
-
-import FamilySizeFrom from "../forms/distance-form";
-import DistanceFrom from "../forms/distance-form";
+import LoanExperienceForm from "../forms/loan-experience-form";
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -15,7 +13,7 @@ interface AlertModalProps {
   loading: boolean;
 }
 
-export const DistanceModal: React.FC<AlertModalProps> = ({
+export const LoanModal: React.FC<AlertModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
@@ -36,13 +34,13 @@ export const DistanceModal: React.FC<AlertModalProps> = ({
 
   return (
     <Modal
-      title="Distance from nearest Coop branch"
+      title="Loan Experience"
       description=""
       isOpen={isOpen}
       onClose={onClose}
     >
       <div className="">
-        <DistanceFrom
+        <LoanExperienceForm
           setAddNew={setAddNew}
           updated={updated}
           setUpdated={setUpdated}
