@@ -10,7 +10,7 @@ import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Check, Edit, Plus } from "lucide-react";
 
 import { CapTableResponse } from "@/types/types";
-import CapTableFrom from "./forms/land-size-form";
+import CapTableFrom from "./forms/agro-form";
 import { FamilySizeModal } from "./modals/family-size";
 import { useFamilySizeModal } from "@/hooks/use-family-size-modal";
 import { AgeModal } from "./modals/age";

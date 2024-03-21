@@ -18,11 +18,11 @@ import { Heading } from "@/components/ui/heading";
 import { LandSize } from "./components/land-size";
 import Summary from "./components/summary";
 import { FarmingExperience } from "./components/farming-experience";
-import { OtherIncome } from "./components/other-income";
-import { LivestockSize } from "./components/livestock-size";
-import { Education } from "./components/education";
 import { Others } from "./components/others";
 import { Status } from "./components/status";
+import { LiveStockSize } from "./components/livestock-size";
+import { EducationLevel } from "./components/education";
+import { OtherIncome } from "./components/other-income";
 
 const AgrocChortsSettingsPage = () => {
   return (
@@ -75,10 +75,10 @@ const AgrocChortsSettingsPage = () => {
           <OtherIncome />
         </TabsContent>
         <TabsContent value="livestock">
-          <LivestockSize />
+          <LiveStockSize />
         </TabsContent>
         <TabsContent value="education">
-          <Education />
+          <EducationLevel />
         </TabsContent>
         <TabsContent value="status">
           <Status />

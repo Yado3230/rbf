@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { CapTableResponse } from "@/types/types";
-
-import FamilySizeFrom from "../forms/distance-form";
+import AgroFrom from "../forms/agro-form";
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -23,7 +21,6 @@ export const FamilySizeModal: React.FC<AlertModalProps> = ({
   const [isMounted, setIsMounted] = useState(false);
 
   const [addNew, setAddNew] = useState("");
-  const [capTable, setCapTable] = useState<CapTableResponse>();
   const [updated, setUpdated] = useState(false);
   const [loading2, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,13 +33,12 @@ export const FamilySizeModal: React.FC<AlertModalProps> = ({
   return (
     <Modal title="Family Size" description="" isOpen={isOpen} onClose={onClose}>
       <div className="">
-        <FamilySizeFrom
+        <AgroFrom
           setAddNew={setAddNew}
           updated={updated}
           setUpdated={setUpdated}
           setLoading={setLoading}
           loading={loading}
-          capTable={capTable}
         />
       </div>
       <div className="flex items-center justify-end pt-6 space-x-2">
