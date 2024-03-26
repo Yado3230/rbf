@@ -159,3 +159,17 @@ export interface UserResponse {
   passwordChanged: boolean;
   updatedAt: string;
 }
+
+export interface Asset {
+  assetName: string;
+  assetDescription: string;
+  assetWeight: number;
+  assetIncrement: number;
+  assetIntervalStart: number;
+  assetIntervalEnd: number;
+  assetStartValue: number;
+  assetEndValue: number;
+  assetStandard: number;
+  isValueIncreasing: boolean;
+  id: number;
+}

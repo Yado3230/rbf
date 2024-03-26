@@ -20,13 +20,27 @@ import { NextApiRequest, NextApiResponse } from "next";
 //   }
 // }
 
+// export const getAsset = async () => {
+//   try {
+//     const res = await fetch("http://10.1.177.121:8884/api/assets");
+//     const responseData = await res.json();
+//     return responseData;
+//   } catch (error) {
+//     console.error("Error:", error);
+//     throw error;
+//   }
+// };
+
 export const getAsset = async () => {
+  const endpoint = "http://10.1.177.121:8884/api/assets";
   try {
-    const res = await fetch("http://10.1.177.121:8884/api/assets");
-    const responseData = await res.json();
-    return responseData;
+    const response = await fetch(endpoint);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return await response.json();
   } catch (error) {
-    console.error("Error:", error);
-    throw error;
+    console.error("Error fetching data:", error);
+    return null;
   }
 };

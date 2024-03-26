@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AgroFrom from "./forms/agro-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,50 +7,44 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
-import { getAsset } from "@/actions/agro-action";
+import { Asset } from "@/types/types";
 
-export const LandSize = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [addNew, setAddNew] = useState("");
-  const [updated, setUpdated] = useState(false);
-  const [loading, setLoading] = useState(false);
-  // const [data, setData] = useState(null);
-  // useEffect(() => {
-  //   async function fetchDataAsync() {
-  //     const result = await getAsset();
-  //     setData(result);
-  //   }
-  //   fetchDataAsync();
-  // }, []);
-  
-  const [formData, setFormData] = useState({
-    intervalStart: 0,
-    intervalEnd: 0,
-    valueStart: 0,
-    intervalIncrement: 0,
-    valueIncrement: 0,
-  });
+interface Props {
+  data: Asset[]; // Assuming data is an array of Asset objects
+}
 
-  const calculateIntervalsAndValues = () => {
-    const intervalsAndValues = [];
+interface IntervalAndValue {
+  interval: number;
+  value: number;
+}
 
-    if (formData.intervalIncrement !== 0) {
-      let value = formData.valueStart;
+export const LandSize: React.FC<Props> = ({ data }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [addNew, setAddNew] = useState<string>("");
+  const [updated, setUpdated] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const calculateIntervalsAndValues = (): IntervalAndValue[] => {
+    const intervalsAndValues: IntervalAndValue[] = [];
+    const asset = data[0];
+
+    if (asset && asset.assetIntervalStart !== undefined && asset.assetIntervalEnd !== undefined && asset.assetIncrement !== undefined && asset.assetStartValue !== undefined && asset.assetEndValue !== undefined && asset.assetIntervalStart <= asset.assetIntervalEnd) {
+      let value: number = asset.assetStartValue;
 
       for (
-        let interval = formData.intervalStart;
-        interval <= formData.intervalEnd;
-        interval += formData.intervalIncrement
+        let interval: number = asset.assetIntervalStart;
+        interval <= asset.assetIntervalEnd;
+        interval += asset.assetIncrement
       ) {
         intervalsAndValues.push({ interval, value });
-        value += formData.valueIncrement;
+        value += asset.assetIncrement;
       }
     }
 
     return intervalsAndValues;
   };
 
-  const results = calculateIntervalsAndValues();
+  const results: IntervalAndValue[] = calculateIntervalsAndValues();
 
   return (
     <div className="grid w-full gap-4">
@@ -64,7 +58,7 @@ export const LandSize = () => {
           setUpdated={setUpdated}
           setLoading={setLoading}
           loading={loading}
-          setFormData={setFormData}
+          data={data}
         />
       </div>
       <Collapsible

@@ -1,7 +1,20 @@
 "use client";
 
-import useSWR from "swr";
-
+import { useEffect, useState } from "react";
+import { Asset } from "@/types/types";
+import { fetchData } from "@/utils/fetchData";
+import { getAsset } from "@/actions/agro-action";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Heading } from "@/components/ui/heading";
+import { LandSize } from "./components/land-size";
+import Summary from "./components/summary";
+import { FarmingExperience } from "./components/farming-experience";
+import { Others } from "./components/others";
+import { Status } from "./components/status";
+import { LiveStockSize } from "./components/livestock-size";
+import { EducationLevel } from "./components/education";
+import { OtherIncome } from "./components/other-income";
 import {
   Cat,
   DollarSign,
@@ -14,34 +27,49 @@ import {
   Weight,
 } from "lucide-react";
 
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heading } from "@/components/ui/heading";
-import { LandSize } from "./components/land-size";
-import Summary from "./components/summary";
-import { FarmingExperience } from "./components/farming-experience";
-import { Others } from "./components/others";
-import { Status } from "./components/status";
-import { LiveStockSize } from "./components/livestock-size";
-import { EducationLevel } from "./components/education";
-import { OtherIncome } from "./components/other-income";
-import { fetchData } from "@/utils/fetchData";
-import { useEffect, useState } from "react";
-import { getAsset } from "@/actions/agro-action";
+// Define types
+interface TabDataMapping {
+  [key: string]: string[];
+}
 
-const AgrocChortsSettingsPage = () => {
-  
-  // const [data, setData] = useState(null);
-  // useEffect(() => {
-  //   async function fetchDataAsync() {
-  //     const result = await getAsset();
-  //     setData(result);
-  //   }
-  //   fetchDataAsync();
-  // }, []);
+const AgrocChortsSettingsPage: React.FC = () => {
+  const [data, setData] = useState<Asset[] | null>(null);
+
+  useEffect(() => {
+    async function fetchDataAsync() {
+      try {
+        const result = await getAsset();
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchDataAsync();
+  }, []);
+
+  // Handle loading state
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  // Define a mapping between tab values and required data properties
+  const tabDataMapping: TabDataMapping = {
+    "land-size": ["LandSize"],
+    "farming-experience": ["FarmExperience"],
+    "other-income": ["OtherIncome"],
+    livestock: ["LivestockSize"],
+    status: [], // No specific data needed
+    others: [], // No specific data needed
+  };
+
+  // Function to filter data based on tab value
+  const getFilteredData = (tabValue: string): Asset[] => {
+    const requiredDataNames = tabDataMapping[tabValue];
+    return data.filter((item) => requiredDataNames.includes(item.assetName));
+  };
 
   // console.log(data);
-  
+
   return (
     <div>
       <div className="mb-4">
@@ -78,7 +106,7 @@ const AgrocChortsSettingsPage = () => {
             <Plus className="w-5 h-5 mr-2" /> Others
           </TabsTrigger>
           <TabsTrigger value="weight" className="py-1">
-          <Weight className="w-5 h-5 mr-2" /> Weight
+            <Weight className="w-5 h-5 mr-2" /> Weight
           </TabsTrigger>
         </TabsList>
         <Separator />
@@ -86,16 +114,16 @@ const AgrocChortsSettingsPage = () => {
           <Summary />
         </TabsContent>
         <TabsContent value="land-size">
-          <LandSize />
+          <LandSize data={getFilteredData("land-size")} />
         </TabsContent>
         <TabsContent value="farming-experience">
-          <FarmingExperience />
+          <FarmingExperience data={getFilteredData("farming-experience")} />
         </TabsContent>
         <TabsContent value="other-income">
-          <OtherIncome />
+          <OtherIncome data={getFilteredData("other-income")} />
         </TabsContent>
         <TabsContent value="livestock">
-          <LiveStockSize />
+          <LiveStockSize data={getFilteredData("livestock")} />
         </TabsContent>
         <TabsContent value="education">
           <EducationLevel />
@@ -106,9 +134,7 @@ const AgrocChortsSettingsPage = () => {
         <TabsContent value="others">
           <Others />
         </TabsContent>
-        <TabsContent value="weight">
-          {/* <Others /> */}
-        </TabsContent>
+        <TabsContent value="weight">{/* <Others /> */}</TabsContent>
       </Tabs>
     </div>
   );
