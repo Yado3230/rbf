@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import AgroFrom from "../forms/agro-form";
+import AgroModalFrom from "../forms/agro-modal-form";
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -24,6 +24,13 @@ export const FamilySizeModal: React.FC<AlertModalProps> = ({
   const [updated, setUpdated] = useState(false);
   const [loading2, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    intervalStart: 0,
+    intervalEnd: 0,
+    valueStart: 0,
+    intervalIncrement: 0,
+    valueIncrement: 0,
+  });
 
   useEffect(() => {
     setIsMounted(true);
@@ -33,12 +40,13 @@ export const FamilySizeModal: React.FC<AlertModalProps> = ({
   return (
     <Modal title="Family Size" description="" isOpen={isOpen} onClose={onClose}>
       <div className="">
-        <AgroFrom
+        <AgroModalFrom
           setAddNew={setAddNew}
           updated={updated}
           setUpdated={setUpdated}
           setLoading={setLoading}
           loading={loading}
+          setFormData={setFormData}
         />
       </div>
       <div className="flex items-center justify-end pt-6 space-x-2">

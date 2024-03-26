@@ -14,7 +14,6 @@ export const LiveStockSize = () => {
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    weight: 0,
     intervalStart: 0,
     intervalEnd: 0,
     valueStart: 0,

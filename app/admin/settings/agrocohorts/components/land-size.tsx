@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AgroFrom from "./forms/agro-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,14 +7,23 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import { getAsset } from "@/actions/agro-action";
 
 export const LandSize = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [addNew, setAddNew] = useState("");
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
+  // const [data, setData] = useState(null);
+  // useEffect(() => {
+  //   async function fetchDataAsync() {
+  //     const result = await getAsset();
+  //     setData(result);
+  //   }
+  //   fetchDataAsync();
+  // }, []);
+  
   const [formData, setFormData] = useState({
-    weight: 0,
     intervalStart: 0,
     intervalEnd: 0,
     valueStart: 0,

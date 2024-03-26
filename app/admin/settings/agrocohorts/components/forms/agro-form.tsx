@@ -16,12 +16,11 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
 const formSchema = z.object({
-  weight: z.coerce.number().min(1).max(100),
   intervalStart: z.coerce.number(),
   valueStart: z.coerce.number(),
   intervalEnd: z.coerce.number().min(1),
-  intervalIncrement: z.coerce.number().min(1),
-  valueIncrement: z.coerce.number().min(1),
+  intervalIncrement: z.coerce.number(),
+  valueIncrement: z.coerce.number(),
 });
 
 type CapTableFromProps = {
@@ -30,7 +29,6 @@ type CapTableFromProps = {
   setUpdated(updated: boolean): void;
   setFormData: Dispatch<
     SetStateAction<{
-      weight: number;
       intervalStart: number;
       intervalEnd: number;
       valueStart: number;
@@ -57,7 +55,6 @@ const AgroFrom: FC<CapTableFromProps> = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // console.log(values);
     setFormData({
-      weight: values.weight,
       intervalStart: values.intervalStart,
       intervalEnd: values.intervalEnd,
       valueStart: values.valueStart,
@@ -71,20 +68,7 @@ const AgroFrom: FC<CapTableFromProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-1 w-full space-x-2">
-            <div className="grid w-full grid-cols-6 gap-2">
-              <FormField
-                control={form.control}
-                name="weight"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Weight</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="weight" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <div className="grid w-full grid-cols-5 gap-2">
               <FormField
                 control={form.control}
                 name="intervalStart"

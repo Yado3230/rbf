@@ -14,7 +14,6 @@ export const FarmingExperience = () => {
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    weight: 0,
     intervalStart: 0,
     intervalEnd: 0,
     valueStart: 0,
@@ -47,7 +46,7 @@ export const FarmingExperience = () => {
     <div className="grid w-full gap-4">
       <div>
         <h1 className="text-xl font-medium leading-tight text-cyan-500">
-          Land Size in Hectare
+          Farming Experience
         </h1>
         <AgroFrom
           setAddNew={setAddNew}

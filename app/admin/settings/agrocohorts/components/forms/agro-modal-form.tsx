@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
 const formSchema = z.object({
-  weight: z.coerce.number().min(1).max(100),
   intervalStart: z.coerce.number(),
   valueStart: z.coerce.number(),
   intervalEnd: z.coerce.number().min(1),
@@ -30,7 +29,6 @@ type CapTableFromProps = {
   setUpdated(updated: boolean): void;
   setFormData: Dispatch<
     SetStateAction<{
-      weight: number;
       intervalStart: number;
       intervalEnd: number;
       valueStart: number;
@@ -42,7 +40,7 @@ type CapTableFromProps = {
   setAddNew(newState: string): void;
 };
 
-const LoanExperienceForm: FC<CapTableFromProps> = ({
+const AgroModalFrom: FC<CapTableFromProps> = ({
   setAddNew,
   updated,
   setUpdated,
@@ -70,20 +68,7 @@ const LoanExperienceForm: FC<CapTableFromProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-1 w-full space-x-2">
-            <div className="grid w-full grid-cols-6 gap-2">
-              <FormField
-                control={form.control}
-                name="weight"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Weight</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="weight" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <div className="grid w-full grid-cols-2 gap-2">
               <FormField
                 control={form.control}
                 name="intervalStart"
@@ -157,7 +142,7 @@ const LoanExperienceForm: FC<CapTableFromProps> = ({
                 control={form.control}
                 name="valueIncrement"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2">
                     <FormLabel>Value Increment</FormLabel>
                     <FormControl>
                       <Input
@@ -171,14 +156,6 @@ const LoanExperienceForm: FC<CapTableFromProps> = ({
                 )}
               />
             </div>
-            <Button
-              size="icon"
-              className="mt-8 bg-cyan-500"
-              disabled={loading}
-              type="submit"
-            >
-              <Check className="w-4 h-4" />
-            </Button>
           </div>
         </form>
       </Form>
@@ -186,4 +163,4 @@ const LoanExperienceForm: FC<CapTableFromProps> = ({
   );
 };
 
-export default LoanExperienceForm;
+export default AgroModalFrom;

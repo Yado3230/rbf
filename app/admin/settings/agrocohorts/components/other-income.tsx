@@ -14,7 +14,6 @@ export const OtherIncome = () => {
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    weight: 0,
     intervalStart: 0,
     intervalEnd: 0,
     valueStart: 0,
@@ -47,7 +46,7 @@ export const OtherIncome = () => {
     <div className="grid w-full gap-4">
       <div>
         <h1 className="text-xl font-medium leading-tight text-cyan-500">
-          Land Size in Hectare
+          Other Income in Birr
         </h1>
         <AgroFrom
           setAddNew={setAddNew}

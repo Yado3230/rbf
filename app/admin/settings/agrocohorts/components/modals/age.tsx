@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { CapTableResponse } from "@/types/types";
-import AgeFrom from "../forms/age-form";
-
+import AgroModalFrom from "../forms/agro-modal-form";
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -27,6 +26,34 @@ export const AgeModal: React.FC<AlertModalProps> = ({
   const [updated, setUpdated] = useState(false);
   const [loading2, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    intervalStart: 0,
+    intervalEnd: 0,
+    valueStart: 0,
+    intervalIncrement: 0,
+    valueIncrement: 0,
+  });
+
+  const calculateIntervalsAndValues = () => {
+    const intervalsAndValues = [];
+
+    if (formData.intervalIncrement !== 0) {
+      let value = formData.valueStart;
+
+      for (
+        let interval = formData.intervalStart;
+        interval <= formData.intervalEnd;
+        interval += formData.intervalIncrement
+      ) {
+        intervalsAndValues.push({ interval, value });
+        value += formData.valueIncrement;
+      }
+    }
+
+    return intervalsAndValues;
+  };
+
+  const results = calculateIntervalsAndValues();
 
   useEffect(() => {
     setIsMounted(true);
@@ -36,13 +63,13 @@ export const AgeModal: React.FC<AlertModalProps> = ({
   return (
     <Modal title="Age" description="" isOpen={isOpen} onClose={onClose}>
       <div className="">
-        <AgeFrom
+        <AgroModalFrom
           setAddNew={setAddNew}
           updated={updated}
           setUpdated={setUpdated}
           setLoading={setLoading}
           loading={loading}
-          capTable={capTable}
+          setFormData={setFormData}
         />
       </div>
       <div className="flex items-center justify-end pt-6 space-x-2">

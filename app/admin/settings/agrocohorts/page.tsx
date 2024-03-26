@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import useSWR from "swr";
+
 import {
   Cat,
   DollarSign,
@@ -10,6 +11,7 @@ import {
   Plus,
   SlidersHorizontal,
   Tractor,
+  Weight,
 } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
@@ -23,8 +25,23 @@ import { Status } from "./components/status";
 import { LiveStockSize } from "./components/livestock-size";
 import { EducationLevel } from "./components/education";
 import { OtherIncome } from "./components/other-income";
+import { fetchData } from "@/utils/fetchData";
+import { useEffect, useState } from "react";
+import { getAsset } from "@/actions/agro-action";
 
 const AgrocChortsSettingsPage = () => {
+  
+  // const [data, setData] = useState(null);
+  // useEffect(() => {
+  //   async function fetchDataAsync() {
+  //     const result = await getAsset();
+  //     setData(result);
+  //   }
+  //   fetchDataAsync();
+  // }, []);
+
+  // console.log(data);
+  
   return (
     <div>
       <div className="mb-4">
@@ -60,6 +77,9 @@ const AgrocChortsSettingsPage = () => {
           <TabsTrigger value="others" className="py-1">
             <Plus className="w-5 h-5 mr-2" /> Others
           </TabsTrigger>
+          <TabsTrigger value="weight" className="py-1">
+          <Weight className="w-5 h-5 mr-2" /> Weight
+          </TabsTrigger>
         </TabsList>
         <Separator />
         <TabsContent value="summary">
@@ -85,6 +105,9 @@ const AgrocChortsSettingsPage = () => {
         </TabsContent>
         <TabsContent value="others">
           <Others />
+        </TabsContent>
+        <TabsContent value="weight">
+          {/* <Others /> */}
         </TabsContent>
       </Tabs>
     </div>

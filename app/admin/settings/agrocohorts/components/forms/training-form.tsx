@@ -57,7 +57,6 @@ const TrainingStatusFrom: FC<CapTableFromProps> = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // console.log(values);
     setFormData({
-      weight: values.weight,
       intervalStart: values.intervalStart,
       intervalEnd: values.intervalEnd,
       valueStart: values.valueStart,
