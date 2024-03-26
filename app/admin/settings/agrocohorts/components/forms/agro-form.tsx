@@ -27,15 +27,6 @@ type CapTableFromProps = {
   updated: boolean;
   loading: boolean;
   setUpdated(updated: boolean): void;
-  setFormData: Dispatch<
-    SetStateAction<{
-      intervalStart: number;
-      intervalEnd: number;
-      valueStart: number;
-      intervalIncrement: number;
-      valueIncrement: number;
-    }>
-  >;
   setLoading(loading: boolean): void;
   setAddNew(newState: string): void;
 };
@@ -45,7 +36,6 @@ const AgroFrom: FC<CapTableFromProps> = ({
   updated,
   setUpdated,
   setLoading,
-  setFormData,
   loading,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,14 +43,7 @@ const AgroFrom: FC<CapTableFromProps> = ({
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // console.log(values);
-    setFormData({
-      intervalStart: values.intervalStart,
-      intervalEnd: values.intervalEnd,
-      valueStart: values.valueStart,
-      intervalIncrement: values.intervalIncrement,
-      valueIncrement: values.valueIncrement,
-    });
+    console.log(values);
   };
 
   return (

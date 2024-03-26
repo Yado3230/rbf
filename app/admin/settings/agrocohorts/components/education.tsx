@@ -54,7 +54,6 @@ export const EducationLevel = () => {
           setUpdated={setUpdated}
           setLoading={setLoading}
           loading={loading}
-          setFormData={setFormData}
         />
       </div>
       <Collapsible

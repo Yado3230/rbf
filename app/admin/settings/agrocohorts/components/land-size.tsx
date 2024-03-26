@@ -28,7 +28,15 @@ export const LandSize: React.FC<Props> = ({ data }) => {
     const intervalsAndValues: IntervalAndValue[] = [];
     const asset = data[0];
 
-    if (asset && asset.assetIntervalStart !== undefined && asset.assetIntervalEnd !== undefined && asset.assetIncrement !== undefined && asset.assetStartValue !== undefined && asset.assetEndValue !== undefined && asset.assetIntervalStart <= asset.assetIntervalEnd) {
+    if (
+      asset &&
+      asset.assetIntervalStart !== undefined &&
+      asset.assetIntervalEnd !== undefined &&
+      asset.assetIncrement !== undefined &&
+      asset.assetStartValue !== undefined &&
+      asset.assetEndValue !== undefined &&
+      asset.assetIntervalStart <= asset.assetIntervalEnd
+    ) {
       let value: number = asset.assetStartValue;
 
       for (
@@ -58,7 +66,7 @@ export const LandSize: React.FC<Props> = ({ data }) => {
           setUpdated={setUpdated}
           setLoading={setLoading}
           loading={loading}
-          data={data}
+          // data={data}
         />
       </div>
       <Collapsible
