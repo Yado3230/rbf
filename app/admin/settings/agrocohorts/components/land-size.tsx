@@ -20,13 +20,16 @@ export const LandSize: React.FC<Props> = ({ data }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const results: IntervalAndValue[] = calculateIntervalsAndValues(data[0]);
-
+  // console.log(data[0]?);
   return (
     <div className="grid w-full gap-4">
       <div>
         <h1 className="text-xl font-medium leading-tight text-cyan-500">
-          Land Size in Hectare
+          {data[0]?.assetDescription}
         </h1>
+        <span className="font-mono text-sm">
+          Weight({data[0]?.assetWeight}%) Standard({data[0]?.assetStandard})
+        </span>
         <AgroFrom
           setAddNew={setAddNew}
           updated={updated}
