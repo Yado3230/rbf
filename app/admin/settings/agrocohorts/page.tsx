@@ -68,7 +68,7 @@ const AgrocChortsSettingsPage: React.FC = () => {
     return data.filter((item) => requiredDataNames.includes(item.assetName));
   };
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>
