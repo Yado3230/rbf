@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -7,18 +7,31 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
-import { Check, Edit, Plus } from "lucide-react";
+import { Edit, Plus } from "lucide-react";
 
-import { CapTableResponse } from "@/types/types";
-import CapTableFrom from "./forms/agro-form";
+import { Asset, CapTableResponse } from "@/types/types";
 import { FamilySizeModal } from "./modals/family-size";
 import { useFamilySizeModal } from "@/hooks/use-family-size-modal";
 import { AgeModal } from "./modals/age";
 import { useAgeModal } from "@/hooks/use-age-modal";
 import { useDistanceModal } from "@/hooks/use-distance-modal";
 import { DistanceModal } from "./modals/distance";
+import {
+  calculateIntervalsAndValues,
+  // IntervalAndValue,
+} from "@/utils/intervalUtils";
 
-export const Others = () => {
+interface Props {
+  familySize: Asset[];
+  distance: Asset[];
+}
+
+interface IntervalAndValue {
+  interval: number;
+  value: number;
+}
+
+export const Others: React.FC<Props> = ({ familySize, distance }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [addNew, setAddNew] = useState("");
   const [capTables, setCapTables] = useState<CapTableResponse[]>([]);
@@ -29,7 +42,12 @@ export const Others = () => {
 
   const familysizemodal = useFamilySizeModal();
   const agemodal = useAgeModal();
-  const distance = useDistanceModal();
+  const distancemodal = useDistanceModal();
+
+  const results1: IntervalAndValue[] = calculateIntervalsAndValues(
+    familySize[0]
+  );
+  const results2: IntervalAndValue[] = calculateIntervalsAndValues(distance[0]);
 
   return (
     <>
@@ -46,9 +64,9 @@ export const Others = () => {
         loading={loading}
       />
       <DistanceModal
-        isOpen={distance.isOpen}
-        onClose={distance.onClose}
-        onConfirm={distance.onClose}
+        isOpen={distancemodal.isOpen}
+        onClose={distancemodal.onClose}
+        onConfirm={distancemodal.onClose}
         loading={loading}
       />
       <div className="grid w-full gap-4">
@@ -93,30 +111,16 @@ export const Others = () => {
               </div>
             </div>
             <CollapsibleContent className="space-y-2">
-              {capTables.map((item) => (
-                <div className="flex space-x-2" key={item.id}>
-                  <div className="grid w-full grid-cols-3 gap-2">
+              {results1.map((result, index) => (
+                <div className="flex space-x-2" key={index}>
+                  <div className="grid w-full grid-cols-2 gap-2">
                     <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                      {item.month} Months
+                      {result.interval}
                     </div>
                     <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                      {item.fixedRevenueShareRate}x of Principal
-                    </div>
-                    <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                      {item.variableRevenueShareRate}x of Principal
+                      {result.value}
                     </div>
                   </div>
-                  <Button
-                    size="icon"
-                    variant="outline"
-                    disabled={loading}
-                    onClick={() => {
-                      setCapTable(item);
-                      setAddNew("returnCapTable");
-                    }}
-                  >
-                    <Edit className="w-4 h-4" />
-                  </Button>
                 </div>
               ))}
             </CollapsibleContent>
@@ -198,7 +202,7 @@ export const Others = () => {
                   size="icon"
                   className="bg-cyan-500"
                   disabled={loading}
-                  onClick={distance.onOpen}
+                  onClick={distancemodal.onOpen}
                 >
                   <Plus className="w-4 h-4" />
                 </Button>
@@ -221,30 +225,16 @@ export const Others = () => {
               </div>
             </div>
             <CollapsibleContent className="space-y-2">
-              {capTables.map((item) => (
-                <div className="flex space-x-2" key={item.id}>
-                  <div className="grid w-full grid-cols-3 gap-2">
+              {results2.map((result, index) => (
+                <div className="flex space-x-2" key={index}>
+                  <div className="grid w-full grid-cols-2 gap-2">
                     <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                      {item.month} Months
+                      {result.interval}
                     </div>
                     <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                      {item.fixedRevenueShareRate}x of Principal
-                    </div>
-                    <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                      {item.variableRevenueShareRate}x of Principal
+                      {result.value}
                     </div>
                   </div>
-                  <Button
-                    size="icon"
-                    variant="outline"
-                    disabled={loading}
-                    onClick={() => {
-                      setCapTable(item);
-                      setAddNew("returnCapTable");
-                    }}
-                  >
-                    <Edit className="w-4 h-4" />
-                  </Button>
                 </div>
               ))}
             </CollapsibleContent>

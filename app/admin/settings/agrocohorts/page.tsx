@@ -57,9 +57,9 @@ const AgrocChortsSettingsPage: React.FC = () => {
     "land-size": ["LandSize"],
     "farming-experience": ["FarmExperience"],
     "other-income": ["OtherIncome"],
+    "family-size": ["FamilySize"],
+    distance: ["Distance"],
     livestock: ["LivestockSize"],
-    status: [], // No specific data needed
-    others: [], // No specific data needed
   };
 
   // Function to filter data based on tab value
@@ -68,7 +68,7 @@ const AgrocChortsSettingsPage: React.FC = () => {
     return data.filter((item) => requiredDataNames.includes(item.assetName));
   };
 
-  // console.log(data);
+  console.log(data);
 
   return (
     <div>
@@ -132,7 +132,10 @@ const AgrocChortsSettingsPage: React.FC = () => {
           <Status />
         </TabsContent>
         <TabsContent value="others">
-          <Others />
+          <Others
+            familySize={getFilteredData("family-size")}
+            distance={getFilteredData("distance")}
+          />
         </TabsContent>
         <TabsContent value="weight">{/* <Others /> */}</TabsContent>
       </Tabs>
