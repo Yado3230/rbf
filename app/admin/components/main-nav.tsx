@@ -142,6 +142,22 @@ export const MainNav: FC<SidebarProps> = ({
             />
           ),
         },
+        {
+          href: `/admin/calculator/agrocalculator`,
+          label: "Agro Calculator",
+          active: pathname === `/admin/calculator/agrocalculator`,
+          authorized: true,
+          icon: (
+            <Calculator
+              size={15}
+              color={`${
+                pathname === `/admin/calculator/agrocalculator`
+                  ? "#fff"
+                  : "#707E94"
+              }`}
+            />
+          ),
+        },
       ],
       icon: (
         <Activity

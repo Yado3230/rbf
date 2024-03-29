@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Asset } from "@/types/types";
-import { fetchData } from "@/utils/fetchData";
+import { SpinnerInfinity } from "spinners-react";
 import { getAsset } from "@/actions/agro-action";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -51,7 +51,17 @@ const AgrocChortsSettingsPage: React.FC = () => {
   }, []);
 
   if (!dataLinear) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center mt-96">
+        <SpinnerInfinity
+          size={90}
+          thickness={180}
+          speed={100}
+          color="rgba(0, 173, 239, 1)"
+          secondaryColor="#e2e8f0"
+        />
+      </div>
+    );
   }
 
   // Define a mapping between tab values and required data properties
@@ -72,7 +82,7 @@ const AgrocChortsSettingsPage: React.FC = () => {
     );
   };
 
-  console.log(dataLinear);
+  // console.log(dataLinear);
 
   return (
     <div>
