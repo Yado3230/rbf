@@ -42,7 +42,6 @@ export const MembershipStatusModal: React.FC<AlertModalProps> = ({
           updated={updated}
           setUpdated={setUpdated}
           setLoading={setLoading}
-          loading={loading}
           capTable={capTable}
         />
       </div>

@@ -16,6 +16,7 @@ import { LiveStockSize } from "./components/livestock-size";
 import { EducationLevel } from "./components/education";
 import { OtherIncome } from "./components/other-income";
 import {
+  Baby,
   Cat,
   DollarSign,
   GraduationCap,
@@ -99,6 +100,9 @@ const AgrocChortsSettingsPage: React.FC = () => {
           <TabsTrigger value="education" className="py-1">
             <GraduationCap className="w-5 h-5 mr-2" /> Education
           </TabsTrigger>
+          <TabsTrigger value="age" className="py-1">
+            <Baby className="w-5 h-5 mr-2" /> Age
+          </TabsTrigger>
           <TabsTrigger value="status" className="py-1">
             <SlidersHorizontal className="w-4 h-4 mr-2" /> Status
           </TabsTrigger>
@@ -124,6 +128,9 @@ const AgrocChortsSettingsPage: React.FC = () => {
         </TabsContent>
         <TabsContent value="livestock">
           <LiveStockSize data={getFilteredData("livestock")} />
+        </TabsContent>
+        <TabsContent value="education">
+          <EducationLevel />
         </TabsContent>
         <TabsContent value="education">
           <EducationLevel />

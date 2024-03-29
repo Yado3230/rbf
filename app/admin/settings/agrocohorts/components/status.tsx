@@ -13,9 +13,6 @@ import { CapTableResponse } from "@/types/types";
 import { useLoanExperienceModal } from "@/hooks/use-loan-experience";
 import { useMembershipStatusModal } from "@/hooks/use-membership-status";
 import { useTrainingModal } from "@/hooks/use-training-modal";
-import { MembershipStatusModal } from "./modals/membership-status";
-import { TrainingModal } from "./modals/training";
-import { LoanModal } from "./modals/loan-experience";
 
 export const Status = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -32,24 +29,6 @@ export const Status = () => {
 
   return (
     <>
-      <MembershipStatusModal
-        isOpen={membershipStatus.isOpen}
-        onClose={membershipStatus.onClose}
-        onConfirm={membershipStatus.onClose}
-        loading={loading}
-      />
-      <LoanModal
-        isOpen={loanExperience.isOpen}
-        onClose={loanExperience.onClose}
-        onConfirm={loanExperience.onClose}
-        loading={loading}
-      />
-      <TrainingModal
-        isOpen={training.isOpen}
-        onClose={training.onClose}
-        onConfirm={training.onClose}
-        loading={loading}
-      />
       <div className="grid w-full gap-4">
         <div className="">
           <h3 className="text-xl font-medium leading-tight text-cyan-500">

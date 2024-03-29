@@ -78,27 +78,12 @@ export const Others: React.FC<Props> = ({ familySize, distance }) => {
             Others
           </h3>
         </div>
-        <div className="grid grid-cols-3 gap-4">
-        <CustomCollapsible
-            isOpen={isOpen}
-            onOpenChange={setIsOpen}
-            title="Age"
-            // content={results.map((result, index) => (
-            //   <div className="flex space-x-2" key={index}>
-            //     <div className="grid w-full grid-cols-2 gap-2">
-            //       <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-            //         {result.interval}
-            //       </div>
-            //       <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-            //         {result.value}
-            //       </div>
-            //     </div>
-            //   </div>
-            // ))}
-          />
+        <div className="grid grid-cols-2 gap-4">
           <CustomCollapsible
             isOpen={isOpen}
             onOpenChange={setIsOpen}
+            modal={true}
+            type="family"
             title={
               familySize[0].assetDescription +
               " ---" +
@@ -118,10 +103,12 @@ export const Others: React.FC<Props> = ({ familySize, distance }) => {
               </div>
             ))}
           />
-         
+
           <CustomCollapsible
             isOpen={isOpen}
             onOpenChange={setIsOpen}
+            modal={true}
+            type="distance"
             title={
               distance[0].assetDescription +
               " ---" +
