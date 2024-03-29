@@ -22,8 +22,8 @@ interface Props {
   onOpenChange: (isOpen: boolean) => void;
   title: string;
   content: React.ReactNode;
-  modal: boolean;
-  type: string;
+  modal?: boolean;
+  type?: string;
 }
 
 const CustomCollapsible: React.FC<Props> = ({

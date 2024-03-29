@@ -4,6 +4,7 @@ interface Asset {
   assetIncrement?: number;
   assetStartValue?: number;
   assetEndValue?: number;
+  isValueIncreasing?: boolean;
 }
 
 export interface IntervalAndValue {
@@ -33,7 +34,11 @@ export const calculateIntervalsAndValues = (
       interval += asset.assetIncrement
     ) {
       intervalsAndValues.push({ interval, value });
-      value += asset.assetIncrement;
+      if (asset.isValueIncreasing) {
+        value++;
+      } else {
+        value--;
+      }
     }
   }
 

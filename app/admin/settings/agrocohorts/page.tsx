@@ -34,13 +34,15 @@ interface TabDataMapping {
 }
 
 const AgrocChortsSettingsPage: React.FC = () => {
-  const [data, setData] = useState<Asset[] | null>(null);
+  const [dataLinear, setDataLinear] = useState<Asset[] | null>(null);
+  const [dataEducation, setDataEducation] = useState<Asset[] | null>(null);
+  const [dataAge, setDataAge] = useState<Asset[] | null>(null);
 
   useEffect(() => {
     async function fetchDataAsync() {
       try {
-        const result = await getAsset();
-        setData(result);
+        const resultLinear = await getAsset();
+        setDataLinear(resultLinear);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -48,8 +50,7 @@ const AgrocChortsSettingsPage: React.FC = () => {
     fetchDataAsync();
   }, []);
 
-  // Handle loading state
-  if (!data) {
+  if (!dataLinear) {
     return <div>Loading...</div>;
   }
 
@@ -57,7 +58,7 @@ const AgrocChortsSettingsPage: React.FC = () => {
   const tabDataMapping: TabDataMapping = {
     "land-size": ["LandSize"],
     "farming-experience": ["FarmExperience"],
-    "other-income": ["OtherIncome"],
+    "other-income": ["OtherIcome"],
     "family-size": ["FamilySize"],
     distance: ["Distance"],
     livestock: ["LivestockSize"],
@@ -66,10 +67,12 @@ const AgrocChortsSettingsPage: React.FC = () => {
   // Function to filter data based on tab value
   const getFilteredData = (tabValue: string): Asset[] => {
     const requiredDataNames = tabDataMapping[tabValue];
-    return data.filter((item) => requiredDataNames.includes(item.assetName));
+    return dataLinear.filter((item) =>
+      requiredDataNames.includes(item.assetName)
+    );
   };
 
-  // console.log(data);
+  console.log(dataLinear);
 
   return (
     <div>
