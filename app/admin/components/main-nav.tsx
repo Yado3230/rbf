@@ -26,6 +26,7 @@ type SidebarProps = {
   isOpened: boolean;
   setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
 export const MainNav: FC<SidebarProps> = ({
   className,
   isOpened,
@@ -69,7 +70,7 @@ export const MainNav: FC<SidebarProps> = ({
             />
           ),
         },
-        {
+        { 
           href: `/admin/cohorts/bnplcohorts`,
           label: "BNPL Cohorts",
           active: pathname === `/admin/cohorts/bnplcohorts`,
