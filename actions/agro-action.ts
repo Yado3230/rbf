@@ -1,4 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
+// import { NextApiRequest, NextApiResponse } from "next";
+
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL_AGRO;
 
 // export default async function getAsset(
 //   req: NextApiRequest,
@@ -31,14 +33,30 @@ import { NextApiRequest, NextApiResponse } from "next";
 //   }
 // };
 
-export const getAsset = async () => {
-  const endpoint = "http://10.1.177.121:8884/api/assets";
+export const getAllAgroData = async () => {
   try {
-    const response = await fetch(endpoint);
+    const response = await fetch(`${API_URL}api/scoringData`);
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
     return await response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+};
+
+export const getFainc = async () => {
+  try {
+    const response = await fetch(`${API_URL}api/scoringData`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const rawData = await response.json();
+    const filteredData = rawData.filter(
+      (item) => item.scoringDataType === "ANNUALFARMINCOME"
+    );
+    return filteredData;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;

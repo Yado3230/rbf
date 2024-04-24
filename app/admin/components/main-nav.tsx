@@ -241,15 +241,15 @@ export const MainNav: FC<SidebarProps> = ({
           ),
         },
         {
-          href: `/admin/settings/agrocohorts`,
+          href: `/admin/settings/agrosettings`,
           label: "Agro Settings",
-          active: pathname === `/admin/settings/agrocohorts`,
+          active: pathname === `/admin/settings/agrosettings`,
           authorized: true,
           icon: (
             <Settings
               size={15}
               color={`${
-                pathname === `/admin/settings/agrocohorts` ? "#fff" : "#707E94"
+                pathname === `/admin/settings/agrosettings` ? "#fff" : "#707E94"
               }`}
             />
           ),

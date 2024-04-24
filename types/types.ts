@@ -161,15 +161,9 @@ export interface UserResponse {
 }
 
 export interface Asset {
-  assetName: string;
-  assetDescription: string;
-  assetWeight: number;
-  assetIncrement: number;
-  assetIntervalStart: number;
-  assetIntervalEnd: number;
-  assetStartValue: number;
-  assetEndValue: number;
-  assetStandard: number;
-  isValueIncreasing: boolean;
   id: number;
+  scoringDataType: string;
+  rangeStart: number | null;
+  rangeEnd: number | null;
+  weight: number;
 }
