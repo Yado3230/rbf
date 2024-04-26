@@ -68,7 +68,7 @@ const AgroForm: FC<AgroFromProps> = ({
     try {
       setLoading(true);
       agroData
-        // ? await editScoringData(values, agroData.id)
+        ? await editScoringData(values, agroData.id)
         : await createScoringData(values);
       setUpdated(!updated);
       toast.success(agroData ? "Updated" : "Created");

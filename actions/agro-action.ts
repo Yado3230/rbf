@@ -84,22 +84,22 @@ export const createScoringData = async (
   }
 };
 
-// export const editScoringData = async (
-//   values: AssetRequest,
-//   id: number
-// ): Promise<AssetResponse> => {
-//   try {
-//     const res = await fetch(`${API_URL}api/scoringData/${id}`, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(values),
-//     });
-//     const responseData = await res.json();
-//     return responseData;
-//   } catch (error) {
-//     console.error("Error:", error);
-//     throw error;
-//   }
-// };
+export const editScoringData = async (
+  values: AssetRequest,
+  id: number
+): Promise<AssetResponse> => {
+  try {
+    const res = await fetch(`${API_URL}api/scoringData/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
