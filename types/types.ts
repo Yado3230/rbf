@@ -160,10 +160,16 @@ export interface UserResponse {
   updatedAt: string;
 }
 
-export interface Asset {
+export interface AssetRequest {
+  scoringDataType: string;
+  rangeStart: number | null;
+  rangeEnd: number | null;
+  weight: number | null;
+}
+export interface AssetResponse {
   id: number;
   scoringDataType: string;
   rangeStart: number | null;
   rangeEnd: number | null;
-  weight: number;
+  weight: number | null;
 }

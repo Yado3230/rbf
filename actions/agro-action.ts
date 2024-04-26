@@ -1,5 +1,7 @@
 // import { NextApiRequest, NextApiResponse } from "next";
 
+import { AssetRequest, AssetResponse } from "@/types/types";
+
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL_AGRO;
 
 // export default async function getAsset(
@@ -62,3 +64,42 @@ export const getFainc = async () => {
     return null;
   }
 };
+
+export const createScoringData = async (
+  values: AssetRequest
+): Promise<AssetResponse> => {
+  try {
+    const res = await fetch(`${API_URL}api/scoringData`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+// export const editScoringData = async (
+//   values: AssetRequest,
+//   id: number
+// ): Promise<AssetResponse> => {
+//   try {
+//     const res = await fetch(`${API_URL}api/scoringData/${id}`, {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(values),
+//     });
+//     const responseData = await res.json();
+//     return responseData;
+//   } catch (error) {
+//     console.error("Error:", error);
+//     throw error;
+//   }
+// };

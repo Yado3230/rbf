@@ -8,15 +8,17 @@ import {
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
-import { Asset, CapTableResponse } from "@/types/types";
+import { AssetResponse, CapTableResponse } from "@/types/types";
 import { getAllReturnCapTables } from "@/actions/cap-table-actions";
 import { getFainc } from "@/actions/agro-action";
+import AgroForm from "./agro-form";
 
 const Fainc = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [addNew, setAddNew] = useState("");
-  const [fainc, setFainc] = useState<Asset[]>([]);
-  const [capTable, setCapTable] = useState<Asset>();
+  const [faincs, setFaincs] = useState<AssetResponse[]>([]);
+  const [fainc, setFainc] = useState<AssetResponse>();
+  // const [capTable, setCapTable] = useState<AssetResponse>();
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,7 +28,7 @@ const Fainc = () => {
       try {
         setLoading(true);
         const res = await getFainc();
-        setFainc(res);
+        setFaincs(res);
       } catch (error) {
         // @ts-ignore
         setError(error);
@@ -69,7 +71,7 @@ const Fainc = () => {
             className="bg-cyan-500"
             disabled={loading}
             onClick={() => {
-              setCapTable(undefined);
+              setFainc(undefined);
               setAddNew("returnCapTable");
             }}
           >
@@ -77,7 +79,7 @@ const Fainc = () => {
           </Button>
         </div>
         <CollapsibleContent className="space-y-2">
-          {fainc.map((item) => (
+          {faincs.map((item) => (
             <div className="flex space-x-2" key={item.id}>
               <div className="grid grid-cols-3 gap-2 w-full">
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
@@ -98,7 +100,7 @@ const Fainc = () => {
                 variant="outline"
                 disabled={loading}
                 onClick={() => {
-                  setCapTable(item);
+                  setFainc(item);
                   setAddNew("returnCapTable");
                 }}
               >
@@ -107,16 +109,16 @@ const Fainc = () => {
             </div>
           ))}
         </CollapsibleContent>
-        {/* {addNew === "returnCapTable" && (
-          <CapTableFrom
+        {addNew === "returnCapTable" && (
+          <AgroForm
             setAddNew={setAddNew}
             updated={updated}
             setUpdated={setUpdated}
             setLoading={setLoading}
             loading={loading}
-            capTable={capTable}
+            agroData={fainc}
           />
-        )} */}
+        )}
       </Collapsible>
     </div>
   );
