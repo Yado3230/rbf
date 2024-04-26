@@ -103,3 +103,19 @@ export const editScoringData = async (
     throw error;
   }
 };
+
+export const deleteScoringData = async (id: number): Promise<[]> => {
+  try {
+    const res = await fetch(`${API_URL}api/scoringData/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

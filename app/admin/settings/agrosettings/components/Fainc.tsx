@@ -8,8 +8,7 @@ import {
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
-import { AssetResponse, CapTableResponse } from "@/types/types";
-import { getAllReturnCapTables } from "@/actions/cap-table-actions";
+import { AssetResponse } from "@/types/types";
 import { getFainc } from "@/actions/agro-action";
 import AgroForm from "./agro-form";
 

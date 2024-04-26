@@ -19,8 +19,12 @@ import {
 import { AssetResponse, CapTableResponse } from "@/types/types";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import { Check, X } from "lucide-react";
-import { createScoringData, editScoringData } from "@/actions/agro-action";
+import { Check, Trash, X } from "lucide-react";
+import {
+  createScoringData,
+  deleteScoringData,
+  editScoringData,
+} from "@/actions/agro-action";
 
 const formSchema = z.object({
   scoringDataType: z.coerce.string(),
@@ -72,6 +76,20 @@ const AgroForm: FC<AgroFromProps> = ({
         : await createScoringData(values);
       setUpdated(!updated);
       toast.success(agroData ? "Updated" : "Created");
+      setAddNew("");
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onDelete = async () => {
+    try {
+      setLoading(true);
+      agroData && (await deleteScoringData(agroData.id));
+      setUpdated(!updated);
+      toast.success(agroData ? "Updated" : "Removed");
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -139,7 +157,7 @@ const AgroForm: FC<AgroFromProps> = ({
             >
               <Check className="h-4 w-4" />
             </Button>
-            {/* {capTable && (
+            {agroData && (
               <Button
                 size="icon"
                 disabled={loading}
@@ -149,7 +167,7 @@ const AgroForm: FC<AgroFromProps> = ({
               >
                 <Trash className="h-4 w-4" />
               </Button>
-            )} */}
+            )}
             <Button
               size="icon"
               disabled={loading}
