@@ -11,12 +11,7 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  createReturnCapTable,
-  deleteReturnCapTable,
-  editReturnCapTable,
-} from "@/actions/cap-table-actions";
-import { AssetResponse, CapTableResponse } from "@/types/types";
+import { AssetResponse } from "@/types/types";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Check, Trash, X } from "lucide-react";
@@ -26,13 +21,6 @@ import {
   editScoringData,
 } from "@/actions/agro-action";
 
-const formSchema = z.object({
-  scoringDataType: z.coerce.string(),
-  rangeStart: z.coerce.number().min(1).max(50),
-  rangeEnd: z.coerce.number().min(1).max(50),
-  weight: z.coerce.number().min(1).max(50),
-});
-
 type AgroFromProps = {
   updated: boolean;
   loading: boolean;
@@ -40,6 +28,7 @@ type AgroFromProps = {
   setLoading(loading: boolean): void;
   setAddNew(newState: string): void;
   agroData: AssetResponse | undefined;
+  largestWeight: number;
 };
 
 const AgroForm: FC<AgroFromProps> = ({
@@ -49,7 +38,15 @@ const AgroForm: FC<AgroFromProps> = ({
   setUpdated,
   setLoading,
   loading,
+  largestWeight,
 }) => {
+  const formSchema = z.object({
+    scoringDataType: z.coerce.string(),
+    rangeStart: z.coerce.number().min(0).max(9998),
+    rangeEnd: z.coerce.number().min(1).max(9999),
+    weight: z.coerce.number().min(0).max(largestWeight),
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: agroData
@@ -63,19 +60,21 @@ const AgroForm: FC<AgroFromProps> = ({
           scoringDataType: "ANNUALFARMINCOME",
           rangeStart: null,
           rangeEnd: null,
-          weight: 0,
+          weight: null,
         },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    // console.log(values);
     try {
       setLoading(true);
       agroData
         ? await editScoringData(values, agroData.id)
         : await createScoringData(values);
       setUpdated(!updated);
-      toast.success(agroData ? "Updated" : "Created");
+      toast.success(
+        agroData ? "Updated Successfully!" : "Created Successfully!"
+      );
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -89,10 +88,11 @@ const AgroForm: FC<AgroFromProps> = ({
       setLoading(true);
       agroData && (await deleteScoringData(agroData.id));
       setUpdated(!updated);
-      toast.success(agroData ? "Updated" : "Removed");
+      toast.success("Deleted Successfully!");
       setAddNew("");
     } catch (error) {
       toast.error("Something went wrong!");
+      // console.log(error);
     } finally {
       setLoading(false);
     }
@@ -110,7 +110,7 @@ const AgroForm: FC<AgroFromProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input type="number" placeholder="Month" {...field} />
+                      <Input type="number" placeholder="Start value" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -124,7 +124,7 @@ const AgroForm: FC<AgroFromProps> = ({
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Fixed Revenue Share Rate"
+                        placeholder="End value"
                         {...field}
                       />
                     </FormControl>
@@ -140,7 +140,7 @@ const AgroForm: FC<AgroFromProps> = ({
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Variable Revenue Share Rate"
+                        placeholder="Weight"
                         {...field}
                       />
                     </FormControl>

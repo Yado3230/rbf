@@ -104,7 +104,7 @@ export const editScoringData = async (
   }
 };
 
-export const deleteScoringData = async (id: number): Promise<[]> => {
+export const deleteScoringData = async (id: number): Promise<void> => {
   try {
     const res = await fetch(`${API_URL}api/scoringData/${id}`, {
       method: "DELETE",
@@ -112,8 +112,13 @@ export const deleteScoringData = async (id: number): Promise<[]> => {
         "Content-Type": "application/json",
       },
     });
-    const responseData = await res.json();
-    return responseData;
+
+    if (res.ok) {
+      return;
+    } else {
+      const errorMessage = await res.text();
+      throw new Error(errorMessage);
+    }
   } catch (error) {
     console.error("Error:", error);
     throw error;
