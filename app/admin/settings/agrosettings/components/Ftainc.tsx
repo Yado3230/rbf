@@ -9,15 +9,15 @@ import {
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
 import { AssetResponse } from "@/types/types";
-import { getFainc } from "@/actions/agro-action";
+import { getFtainc } from "@/actions/agro-action";
 import AgroForm from "./agro-form";
 
-const Fainc = () => {
+const Ftainc = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [addNew, setAddNew] = useState("");
   const [largestWeight, setLargestWeight] = useState<number>(0);
-  const [faincs, setFaincs] = useState<AssetResponse[]>([]);
-  const [fainc, setFainc] = useState<AssetResponse>();
+  const [ftaincs, setFtaincs] = useState<AssetResponse[]>([]);
+  const [ftainc, setFtainc] = useState<AssetResponse>();
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,8 +26,8 @@ const Fainc = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getFainc();
-        setFaincs(res);
+        const res = await getFtainc();
+        setFtaincs(res);
         // let maxWeight = 0;
         // res.forEach((item) => {
         //   if (item.weight && item.weight > maxWeight) {
@@ -77,7 +77,7 @@ const Fainc = () => {
             className="bg-cyan-500"
             disabled={loading}
             onClick={() => {
-              setFainc(undefined);
+              setFtainc(undefined);
               setAddNew("returnCapTable");
             }}
           >
@@ -85,14 +85,14 @@ const Fainc = () => {
           </Button>
         </div>
         <CollapsibleContent className="space-y-2">
-          {faincs.map((item) => (
+          {ftaincs.map((item) => (
             <div className="flex space-x-2" key={item.id}>
-              {item.weight &&
-                item.weight > largestWeight &&
-                setLargestWeight(item.weight)}
+              {item.weight && item.weight > largestWeight
+                ? setLargestWeight(item.weight)
+                : ""}
               <div className="grid grid-cols-3 gap-2 w-full">
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  From {item.rangeStart} FAINC
+                  From {item.rangeStart} FTAINC
                 </div>
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
                   To{" "}
@@ -109,7 +109,7 @@ const Fainc = () => {
                 variant="outline"
                 disabled={loading}
                 onClick={() => {
-                  setFainc(item);
+                  setFtainc(item);
                   setAddNew("returnCapTable");
                 }}
               >
@@ -125,9 +125,9 @@ const Fainc = () => {
             setUpdated={setUpdated}
             setLoading={setLoading}
             loading={loading}
-            agroData={fainc}
-            largestWeight={largestWeight}
-            type="ANNUALFARMINCOME"
+            agroData={ftainc}
+            largestWeight={8}
+            type="ANNUALFURTUFARMINCOME"
           />
         )}
       </Collapsible>
@@ -135,4 +135,4 @@ const Fainc = () => {
   );
 };
 
-export default Fainc;
+export default Ftainc;

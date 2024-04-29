@@ -13,6 +13,7 @@ import {
   Weight,
 } from "lucide-react";
 import Fainc from "./components/Fainc";
+import Ftainc from "./components/Ftainc";
 
 const AgroSettingsPage: React.FC = () => {
   return (
@@ -55,7 +56,9 @@ const AgroSettingsPage: React.FC = () => {
         <TabsContent value="fa">
           <Fainc />
         </TabsContent>
-        <TabsContent value="fta"></TabsContent>
+        <TabsContent value="fta">
+          <Ftainc />
+        </TabsContent>
         <TabsContent value="ftan"></TabsContent>
         <TabsContent value="asset"></TabsContent>
         <TabsContent value="social"></TabsContent>

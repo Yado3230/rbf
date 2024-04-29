@@ -29,6 +29,7 @@ type AgroFromProps = {
   setAddNew(newState: string): void;
   agroData: AssetResponse | undefined;
   largestWeight: number;
+  type: string;
 };
 
 const AgroForm: FC<AgroFromProps> = ({
@@ -39,6 +40,7 @@ const AgroForm: FC<AgroFromProps> = ({
   setLoading,
   loading,
   largestWeight,
+  type,
 }) => {
   const formSchema = z.object({
     scoringDataType: z.coerce.string(),
@@ -57,7 +59,7 @@ const AgroForm: FC<AgroFromProps> = ({
           weight: agroData.weight,
         }
       : {
-          scoringDataType: "ANNUALFARMINCOME",
+          scoringDataType: type,
           rangeStart: null,
           rangeEnd: null,
           weight: null,
@@ -110,7 +112,11 @@ const AgroForm: FC<AgroFromProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input type="number" placeholder="Start value" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="Start value"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -122,11 +128,7 @@ const AgroForm: FC<AgroFromProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="End value"
-                        {...field}
-                      />
+                      <Input type="number" placeholder="End value" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -138,11 +140,7 @@ const AgroForm: FC<AgroFromProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Weight"
-                        {...field}
-                      />
+                      <Input type="number" placeholder="Weight" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
