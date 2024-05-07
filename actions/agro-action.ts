@@ -50,6 +50,22 @@ export const getFtainc = async () => {
     return null;
   }
 };
+export const getFtaninc = async () => {
+  try {
+    const response = await fetch(`${API_URL}api/scoringData`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const rawData = await response.json();
+    const filteredData = rawData.filter(
+      (item) => item.scoringDataType === "ANNUALNONFARMINCOME"
+    );
+    return filteredData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+};
 
 export const createScoringData = async (
   values: AssetRequest

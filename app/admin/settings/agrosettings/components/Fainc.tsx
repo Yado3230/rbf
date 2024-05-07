@@ -87,9 +87,9 @@ const Fainc = () => {
         <CollapsibleContent className="space-y-2">
           {faincs.map((item) => (
             <div className="flex space-x-2" key={item.id}>
-              {item.weight &&
-                item.weight > largestWeight &&
-                setLargestWeight(item.weight)}
+              {item.weight && item.weight > largestWeight
+                ? setLargestWeight(item.weight)
+                : ""}
               <div className="grid grid-cols-3 gap-2 w-full">
                 <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
                   From {item.rangeStart} FAINC

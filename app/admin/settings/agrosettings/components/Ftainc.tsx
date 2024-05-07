@@ -28,13 +28,6 @@ const Ftainc = () => {
         setLoading(true);
         const res = await getFtainc();
         setFtaincs(res);
-        // let maxWeight = 0;
-        // res.forEach((item) => {
-        //   if (item.weight && item.weight > maxWeight) {
-        //     maxWeight = item.weight;
-        //   }
-        // });
-        // setLargestWeight(maxWeight);
       } catch (error) {
         // @ts-ignore
         setError(error);
