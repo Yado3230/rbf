@@ -15,6 +15,7 @@ import {
 import Fainc from "./components/Fainc";
 import Ftainc from "./components/Ftainc";
 import Ftaninc from "./components/Ftaninc";
+import Weight1 from "./components/weight";
 
 const AgroSettingsPage: React.FC = () => {
   return (
@@ -30,6 +31,9 @@ const AgroSettingsPage: React.FC = () => {
         <TabsList className="flex items-center justify-start mb-4">
           <TabsTrigger value="summary" className="py-1">
             <LayoutDashboard className="w-5 h-5 mr-2" /> Summary
+          </TabsTrigger>
+          <TabsTrigger value="weight" className="py-1">
+            <Weight className="w-5 h-5 mr-2" /> Weight
           </TabsTrigger>
           <TabsTrigger value="fa" className="py-1">
             <LineChart className="w-5 h-5 mr-2" /> Forecasted Annual Income
@@ -48,9 +52,6 @@ const AgroSettingsPage: React.FC = () => {
           <TabsTrigger value="social" className="py-1">
             <Speech className="w-5 h-5 mr-2" /> Social Capital
           </TabsTrigger>
-          <TabsTrigger value="weight" className="py-1">
-            <Weight className="w-5 h-5 mr-2" /> Weight
-          </TabsTrigger>
         </TabsList>
         <Separator />
         <TabsContent value="summary"></TabsContent>
@@ -60,10 +61,14 @@ const AgroSettingsPage: React.FC = () => {
         <TabsContent value="fta">
           <Ftainc />
         </TabsContent>
-        <TabsContent value="ftan"><Ftaninc/></TabsContent>
+        <TabsContent value="ftan">
+          <Ftaninc />
+        </TabsContent>
         <TabsContent value="asset"></TabsContent>
         <TabsContent value="social"></TabsContent>
-        <TabsContent value="weight"></TabsContent>
+        <TabsContent value="weight">
+          <Weight1 />
+        </TabsContent>
       </Tabs>
     </div>
   );
