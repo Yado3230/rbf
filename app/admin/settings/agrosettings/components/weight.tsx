@@ -13,6 +13,7 @@ import { RiskResponse } from "@/types/types";
 import { getAllRisks } from "@/actions/risk-action";
 import { Separator } from "@/components/ui/separator";
 import WeightFormGeneral from "./weight-form-general";
+import WeightForm from "./weight-form";
 
 const Weight1 = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -71,9 +72,12 @@ const Weight1 = () => {
             </Button>
           </div>
         </CollapsibleContent>
-        <div className="mt-2">{addNew === "risks" && <WeightFormGeneral />}</div>
+        <div className="mt-2">
+          {addNew === "risks" && <WeightFormGeneral />}
+        </div>
       </Collapsible>
       <Separator />
+      <WeightForm />
     </div>
   );
 };
