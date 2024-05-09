@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
-import { AssetResponse } from "@/types/types";
+import { Response } from "@/types/types";
 import { getFtainc } from "@/actions/agro-action";
 import AgroForm from "./agro-form";
 
@@ -16,8 +16,8 @@ const Ftainc = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [addNew, setAddNew] = useState("");
   const [largestWeight, setLargestWeight] = useState<number>(0);
-  const [ftaincs, setFtaincs] = useState<AssetResponse[]>([]);
-  const [ftainc, setFtainc] = useState<AssetResponse>();
+  const [ftaincs, setFtaincs] = useState<Response[]>([]);
+  const [ftainc, setFtainc] = useState<Response>();
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -56,13 +56,13 @@ const Ftainc = () => {
         <div className="flex space-x-2">
           <div className="grid w-full grid-cols-3 gap-2">
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
-              Start Value
+              Balance Threshold
             </div>
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
-              End Value
+              Minimum Weight
             </div>
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
-              Weight (%)
+              Description
             </div>
           </div>
           <Button
@@ -78,38 +78,38 @@ const Ftainc = () => {
           </Button>
         </div>
         <CollapsibleContent className="space-y-2">
-          {ftaincs.map((item) => (
-            <div className="flex space-x-2" key={item.id}>
-              
-              <div className="grid w-full grid-cols-3 gap-2">
-                <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                  From {item.rangeStart} FTAINC
+          {ftaincs && ftaincs.length > 0 ? (
+            ftaincs.map((item) => (
+              <div className="flex space-x-2" key={item.id}>
+                <div className="grid w-full grid-cols-3 gap-2">
+                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
+                    {item.balanceThreshold}FAINC
+                  </div>
+                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
+                    {item.minWeight}
+                  </div>
+                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
+                    {item.description}
+                  </div>
                 </div>
-                <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                  To{" "}
-                  {item.rangeEnd !== null && item.rangeEnd > 251
-                    ? "♾️"
-                    : item.rangeEnd}
-                </div>
-                <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                  {item.weight}%
-                </div>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  disabled={loading}
+                  onClick={() => {
+                    setFtainc(item);
+                    setAddNew("returnCapTable");
+                  }}
+                >
+                  <Edit className="w-4 h-4" />
+                </Button>
               </div>
-              <Button
-                size="icon"
-                variant="outline"
-                disabled={loading}
-                onClick={() => {
-                  setFtainc(item);
-                  setAddNew("returnCapTable");
-                }}
-              >
-                <Edit className="w-4 h-4" />
-              </Button>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div className="flex mx-auto justify-center">No data available</div>
+          )}
         </CollapsibleContent>
-        {addNew === "returnCapTable" && (
+        {/* {addNew === "returnCapTable" && (
           <AgroForm
             setAddNew={setAddNew}
             updated={updated}
@@ -120,7 +120,7 @@ const Ftainc = () => {
             largestWeight={8}
             type="ANNUALFURTUFARMINCOME"
           />
-        )}
+        )} */}
       </Collapsible>
     </div>
   );

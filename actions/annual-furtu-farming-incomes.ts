@@ -1,9 +1,24 @@
 import { Request, Response } from "@/types/types";
 
-const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL_AGRO;
 type Endpoint = string;
 
 export const getAll = async (endpoint: Endpoint) => {
+  try {
+    const response = await fetch(`${API_URL}${endpoint}`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+};
+
+export const getAllCohort = async (endpoint: Endpoint) => {
   try {
     const response = await fetch(`${API_URL}${endpoint}`);
 
@@ -41,7 +56,7 @@ export const create = async (
     return responseData;
   } catch (error) {
     console.error("Error creating data:", error);
-    throw error; // Re-throw the error for further handling
+    throw error;
   }
 };
 

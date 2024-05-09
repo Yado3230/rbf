@@ -16,6 +16,10 @@ import Fainc from "./components/Fainc";
 import Ftainc from "./components/Ftainc";
 import Ftaninc from "./components/Ftaninc";
 import Weight1 from "./components/weight";
+import Asset from "./components/asset";
+import Literacy from "./components/literacy";
+import Behavior from "./components/behavior";
+import Experience from "./components/experience";
 
 const AgroSettingsPage: React.FC = () => {
   return (
@@ -36,18 +40,7 @@ const AgroSettingsPage: React.FC = () => {
             <Weight className="w-5 h-5 mr-2" /> Weight
           </TabsTrigger>
           <TabsTrigger value="fa" className="py-1">
-            <LineChart className="w-5 h-5 mr-2" /> Forecasted Annual Income
-          </TabsTrigger>
-          <TabsTrigger value="fta" className="py-1">
-            <Tractor className="w-5 h-5 mr-2" /> Forecasted Total Annual Farm
-            Income
-          </TabsTrigger>
-          <TabsTrigger value="ftan" className="py-1">
-            <DollarSign className="w-5 h-5 mr-2" /> Forecasted Total Annual
-            non-farm Income
-          </TabsTrigger>
-          <TabsTrigger value="asset" className="py-1">
-            <Banknote className="w-5 h-5 mr-2" /> Asset
+            <LineChart className="w-5 h-5 mr-2" /> Farmer Business Growth
           </TabsTrigger>
           <TabsTrigger value="social" className="py-1">
             <Speech className="w-5 h-5 mr-2" /> Social Capital
@@ -55,19 +48,19 @@ const AgroSettingsPage: React.FC = () => {
         </TabsList>
         <Separator />
         <TabsContent value="summary"></TabsContent>
-        <TabsContent value="fa">
-          <Fainc />
-        </TabsContent>
-        <TabsContent value="fta">
-          <Ftainc />
-        </TabsContent>
-        <TabsContent value="ftan">
-          <Ftaninc />
-        </TabsContent>
-        <TabsContent value="asset"></TabsContent>
-        <TabsContent value="social"></TabsContent>
         <TabsContent value="weight">
           <Weight1 />
+        </TabsContent>
+        <TabsContent value="fa">
+          <Fainc />
+          <Ftainc />
+          <Ftaninc />
+          <Asset />
+        </TabsContent>
+        <TabsContent value="social">
+          <Literacy />
+          <Behavior />
+          <Experience />
         </TabsContent>
       </Tabs>
     </div>

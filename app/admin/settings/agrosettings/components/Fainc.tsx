@@ -8,16 +8,16 @@ import {
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
-import { AssetResponse } from "@/types/types";
-import { getFainc } from "@/actions/agro-action";
+import { Response } from "@/types/types";
 import AgroForm from "./agro-form";
+import { getAll } from "@/actions/annual-furtu-farming-incomes";
 
 const Fainc = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [addNew, setAddNew] = useState("");
   const [largestWeight, setLargestWeight] = useState<number>(0);
-  const [faincs, setFaincs] = useState<AssetResponse[]>([]);
-  const [fainc, setFainc] = useState<AssetResponse>();
+  const [faincs, setFaincs] = useState<Response[]>([]);
+  const [fainc, setFainc] = useState<Response>();
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,15 +26,8 @@ const Fainc = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getFainc();
+        const res = await getAll("api/annualFurtuFarmingIncomes/default");
         setFaincs(res);
-        // let maxWeight = 0;
-        // res.forEach((item) => {
-        //   if (item.weight && item.weight > maxWeight) {
-        //     maxWeight = item.weight;
-        //   }
-        // });
-        // setLargestWeight(maxWeight);
       } catch (error) {
         // @ts-ignore
         setError(error);
@@ -44,32 +37,33 @@ const Fainc = () => {
     };
     fetchData();
   }, [updated]);
+  console.log(faincs);
   return (
-    <div className="grid gap-4 w-full">
+    <div className="grid w-full gap-4">
       <Collapsible
         open={isOpen}
         onOpenChange={setIsOpen}
         className="w-full space-y-2"
       >
-        <div className="flex items-center justify-between space-x-4 px-1">
+        <div className="flex items-center justify-between px-1 space-x-4">
           <h4 className="text-sm font-semibold">Forecasted Annual Income</h4>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="sm">
-              <CaretSortIcon className="h-4 w-4" />
+              <CaretSortIcon className="w-4 h-4" />
               <span className="sr-only">Toggle</span>
             </Button>
           </CollapsibleTrigger>
         </div>
         <div className="flex space-x-2">
-          <div className="grid grid-cols-3 gap-2 w-full">
-            <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
-              Start Value
+          <div className="grid w-full grid-cols-3 gap-2">
+            <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
+              Balance Threshold
             </div>
-            <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
-              End Value
+            <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
+              Minimum Weight
             </div>
-            <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
-              Weight (%)
+            <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
+              Description
             </div>
           </div>
           <Button
@@ -81,44 +75,42 @@ const Fainc = () => {
               setAddNew("returnCapTable");
             }}
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="w-4 h-4" />
           </Button>
         </div>
         <CollapsibleContent className="space-y-2">
-          {faincs.map((item) => (
-            <div className="flex space-x-2" key={item.id}>
-              {item.weight && item.weight > largestWeight
-                ? setLargestWeight(item.weight)
-                : ""}
-              <div className="grid grid-cols-3 gap-2 w-full">
-                <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  From {item.rangeStart} FAINC
+          {faincs && faincs.length > 0 ? (
+            faincs.map((item) => (
+              <div className="flex space-x-2" key={item.id}>
+                <div className="grid w-full grid-cols-3 gap-2">
+                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
+                    {item.balanceThreshold}FAINC
+                  </div>
+                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
+                    {item.minWeight}
+                  </div>
+                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
+                    {item.description}
+                  </div>
                 </div>
-                <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  To{" "}
-                  {item.rangeEnd !== null && item.rangeEnd > 251
-                    ? "♾️"
-                    : item.rangeEnd}
-                </div>
-                <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-                  {item.weight}%
-                </div>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  disabled={loading}
+                  onClick={() => {
+                    setFainc(item);
+                    setAddNew("returnCapTable");
+                  }}
+                >
+                  <Edit className="w-4 h-4" />
+                </Button>
               </div>
-              <Button
-                size="icon"
-                variant="outline"
-                disabled={loading}
-                onClick={() => {
-                  setFainc(item);
-                  setAddNew("returnCapTable");
-                }}
-              >
-                <Edit className="h-4 w-4" />
-              </Button>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div className="flex mx-auto justify-center">No data available</div>
+          )}
         </CollapsibleContent>
-        {addNew === "returnCapTable" && (
+        {/* {addNew === "returnCapTable" && (
           <AgroForm
             setAddNew={setAddNew}
             updated={updated}
@@ -129,7 +121,7 @@ const Fainc = () => {
             largestWeight={largestWeight}
             type="ANNUALFARMINCOME"
           />
-        )}
+        )} */}
       </Collapsible>
     </div>
   );
