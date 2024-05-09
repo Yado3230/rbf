@@ -173,3 +173,18 @@ export interface AssetResponse {
   rangeEnd: number | null;
   weight: number | null;
 }
+
+export interface Request {
+  balanceThreshold: number;
+  minWeight: number;
+  description: string;
+  updatedAt: string;
+}
+export interface Response {
+  balanceThreshold: number;
+  minWeight: number;
+  description: string;
+  createdDate: string;
+  updatedAt: string;
+  id: number;
+}
