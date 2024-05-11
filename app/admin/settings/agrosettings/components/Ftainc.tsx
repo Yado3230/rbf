@@ -11,6 +11,7 @@ import { Edit, Plus } from "lucide-react";
 import { Response } from "@/types/types";
 import { getFtainc } from "@/actions/agro-action";
 import AgroForm from "./agro-form";
+import { getAll } from "@/actions/annual-furtu-farming-incomes";
 
 const Ftainc = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -26,7 +27,7 @@ const Ftainc = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getFtainc();
+        const res = await getAll("api/annualFurtuFarmingIncomes/default");
         setFtaincs(res);
       } catch (error) {
         // @ts-ignore
@@ -45,7 +46,7 @@ const Ftainc = () => {
         className="w-full space-y-2"
       >
         <div className="flex items-center justify-between px-1 space-x-4">
-          <h4 className="text-sm font-semibold">Forecasted Annual Income</h4>
+          <h4 className="text-sm font-semibold">Annual Furtu Farming Income</h4>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="sm">
               <CaretSortIcon className="w-4 h-4" />
@@ -109,7 +110,7 @@ const Ftainc = () => {
             <div className="flex mx-auto justify-center">No data available</div>
           )}
         </CollapsibleContent>
-        {/* {addNew === "returnCapTable" && (
+        {addNew === "returnCapTable" && (
           <AgroForm
             setAddNew={setAddNew}
             updated={updated}
@@ -118,9 +119,9 @@ const Ftainc = () => {
             loading={loading}
             agroData={ftainc}
             largestWeight={8}
-            type="ANNUALFURTUFARMINCOME"
+            type="api/annualFurtuFarmingIncomes"
           />
-        )} */}
+        )}
       </Collapsible>
     </div>
   );

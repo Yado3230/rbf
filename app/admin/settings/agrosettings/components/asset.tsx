@@ -10,6 +10,7 @@ import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
 import { Response } from "@/types/types";
 import { getAll } from "@/actions/annual-furtu-farming-incomes";
+import AgroForm from "./agro-form";
 
 const Asset = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,7 +26,7 @@ const Asset = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getAll("api/annualFurtuFarmingIncomes/default");
+        const res = await getAll("api/assets/default");
         setAssets(res);
       } catch (error) {
         // @ts-ignore
@@ -106,10 +107,10 @@ const Asset = () => {
               </div>
             ))
           ) : (
-            <div className="flex mx-auto justify-center">No data available</div>
+            <div className="flex justify-center mx-auto">No data available</div>
           )}
         </CollapsibleContent>
-        {/* {addNew === "returnCapTable" && (
+        {addNew === "returnCapTable" && (
           <AgroForm
             setAddNew={setAddNew}
             updated={updated}
@@ -117,10 +118,10 @@ const Asset = () => {
             setLoading={setLoading}
             loading={loading}
             agroData={asset}
-            largestWeight={largestWeight}
-            type="ANNUALFARMINCOME"
+            largestWeight={4}
+            type="api/assets"
           />
-        )} */}
+        )}
       </Collapsible>
     </div>
   );

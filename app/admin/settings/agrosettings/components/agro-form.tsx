@@ -11,7 +11,7 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AssetResponse } from "@/types/types";
+import { Response } from "@/types/types";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Check, Trash, X } from "lucide-react";
@@ -20,6 +20,7 @@ import {
   deleteScoringData,
   editScoringData,
 } from "@/actions/agro-action";
+import { create } from "@/actions/annual-furtu-farming-incomes";
 
 type AgroFromProps = {
   updated: boolean;
@@ -27,7 +28,7 @@ type AgroFromProps = {
   setUpdated(updated: boolean): void;
   setLoading(loading: boolean): void;
   setAddNew(newState: string): void;
-  agroData: AssetResponse | undefined;
+  agroData: Response | undefined;
   largestWeight: number;
   type: string;
 };
@@ -43,36 +44,35 @@ const AgroForm: FC<AgroFromProps> = ({
   type,
 }) => {
   const formSchema = z.object({
-    scoringDataType: z.coerce.string(),
-    rangeStart: z.coerce.number().min(0).max(9998),
-    rangeEnd: z.coerce.number().min(1).max(9999),
-    weight: z.coerce.number().min(0).max(largestWeight),
+    balanceThreshold: z.coerce.number(),
+    minWeight: z.coerce.number(),
+    description: z.coerce.string(),
+    updatedAt: z.coerce.string(),
+    // weight: z.coerce.number().min(0).max(largestWeight),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: agroData
       ? {
-          scoringDataType: agroData.scoringDataType,
-          rangeStart: agroData.rangeStart,
-          rangeEnd: agroData.rangeEnd,
-          weight: agroData.weight,
+          balanceThreshold: agroData.balanceThreshold,
+          minWeight: agroData.minWeight,
+          description: agroData.description,
+          // weight: agroData.weight,
         }
       : {
-          scoringDataType: type,
-          rangeStart: null,
-          rangeEnd: null,
-          weight: null,
+          balanceThreshold: 0,
+          minWeight: 0,
+          description: "",
+          // weight: null,
         },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // console.log(values);
+    console.log(values);
     try {
       setLoading(true);
-      agroData
-        ? await editScoringData(values, agroData.id)
-        : await createScoringData(values);
+      agroData ? await create(type, values) : await create(type, values);
       setUpdated(!updated);
       toast.success(
         agroData ? "Updated Successfully!" : "Created Successfully!"
@@ -108,13 +108,13 @@ const AgroForm: FC<AgroFromProps> = ({
             <div className="grid grid-cols-3 gap-2 w-full">
               <FormField
                 control={form.control}
-                name="rangeStart"
+                name="balanceThreshold"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Start value"
+                        placeholder="Balance Threshold"
                         {...field}
                       />
                     </FormControl>
@@ -124,11 +124,15 @@ const AgroForm: FC<AgroFromProps> = ({
               />
               <FormField
                 control={form.control}
-                name="rangeEnd"
+                name="minWeight"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input type="number" placeholder="End value" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="Min Weight"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -136,11 +140,11 @@ const AgroForm: FC<AgroFromProps> = ({
               />
               <FormField
                 control={form.control}
-                name="weight"
+                name="description"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input type="number" placeholder="Weight" {...field} />
+                      <Input placeholder="Description" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -4,12 +4,9 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heading } from "@/components/ui/heading";
 import {
-  Banknote,
-  DollarSign,
   LayoutDashboard,
   LineChart,
   Speech,
-  Tractor,
   Weight,
 } from "lucide-react";
 import Fainc from "./components/Fainc";

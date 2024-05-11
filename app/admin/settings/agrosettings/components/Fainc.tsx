@@ -26,7 +26,7 @@ const Fainc = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getAll("api/annualFurtuFarmingIncomes/default");
+        const res = await getAll("api/annualFarmingIncomes/default");
         setFaincs(res);
       } catch (error) {
         // @ts-ignore
@@ -37,7 +37,7 @@ const Fainc = () => {
     };
     fetchData();
   }, [updated]);
-  console.log(faincs);
+  // console.log(faincs);
   return (
     <div className="grid w-full gap-4">
       <Collapsible
@@ -107,10 +107,10 @@ const Fainc = () => {
               </div>
             ))
           ) : (
-            <div className="flex mx-auto justify-center">No data available</div>
+            <div className="flex justify-center mx-auto">No data available</div>
           )}
         </CollapsibleContent>
-        {/* {addNew === "returnCapTable" && (
+        {addNew === "returnCapTable" && (
           <AgroForm
             setAddNew={setAddNew}
             updated={updated}
@@ -118,10 +118,10 @@ const Fainc = () => {
             setLoading={setLoading}
             loading={loading}
             agroData={fainc}
-            largestWeight={largestWeight}
-            type="ANNUALFARMINCOME"
+            largestWeight={8}
+            type="api/annualFarmingIncomes"
           />
-        )} */}
+        )}
       </Collapsible>
     </div>
   );

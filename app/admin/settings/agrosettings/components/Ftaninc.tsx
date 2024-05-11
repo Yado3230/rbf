@@ -27,7 +27,7 @@ const Ftaninc = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getAll("api/annualFurtuFarmingIncomes/default");
+        const res = await getAll("api/annualNonFarmingIncomes/default");
         setFtanincs(res);
       } catch (error) {
         // @ts-ignore
@@ -39,24 +39,26 @@ const Ftaninc = () => {
     fetchData();
   }, [updated]);
   return (
-    <div className="grid gap-4 w-full">
+    <div className="grid w-full gap-4">
       <Collapsible
         open={isOpen}
         onOpenChange={setIsOpen}
         className="w-full space-y-2"
       >
-        <div className="flex items-center justify-between space-x-4 px-1">
-          <h4 className="text-sm font-semibold">Forecasted Annual Income</h4>
+        <div className="flex items-center justify-between px-1 space-x-4">
+          <h4 className="text-sm font-semibold">
+            Annual Furtu Non Farming Inocme
+          </h4>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="sm">
-              <CaretSortIcon className="h-4 w-4" />
+              <CaretSortIcon className="w-4 h-4" />
               <span className="sr-only">Toggle</span>
             </Button>
           </CollapsibleTrigger>
         </div>
         <div className="flex space-x-2">
-          <div className="grid grid-cols-3 gap-2 w-full">
-            <div className="rounded-md border px-4 py-2 font-semibold bg-gray-100 text-sm shadow-sm">
+          <div className="grid w-full grid-cols-3 gap-2">
+            <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
               Balance Threshold
             </div>
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
@@ -75,7 +77,7 @@ const Ftaninc = () => {
               setAddNew("returnCapTable");
             }}
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="w-4 h-4" />
           </Button>
         </div>
         <CollapsibleContent className="space-y-2">
@@ -107,10 +109,10 @@ const Ftaninc = () => {
               </div>
             ))
           ) : (
-            <div className="flex mx-auto justify-center">No data available</div>
+            <div className="flex justify-center mx-auto">No data available</div>
           )}
         </CollapsibleContent>
-        {/* {addNew === "returnCapTable" && (
+        {addNew === "returnCapTable" && (
           <AgroForm
             setAddNew={setAddNew}
             updated={updated}
@@ -119,9 +121,9 @@ const Ftaninc = () => {
             loading={loading}
             agroData={ftaninc}
             largestWeight={4}
-            type="ANNUALNONFARMINCOME"
+            type="api/annualNonFarmingIncomes"
           />
-        )} */}
+        )}
       </Collapsible>
     </div>
   );
