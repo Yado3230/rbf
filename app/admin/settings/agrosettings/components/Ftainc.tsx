@@ -84,7 +84,7 @@ const Ftainc = () => {
               <div className="flex space-x-2" key={item.id}>
                 <div className="grid w-full grid-cols-3 gap-2">
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                    {item.balanceThreshold}FAINC
+                    {item.balanceThreshold}
                   </div>
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
                     {item.minWeight}
@@ -107,7 +107,7 @@ const Ftainc = () => {
               </div>
             ))
           ) : (
-            <div className="flex mx-auto justify-center">No data available</div>
+            <div className="flex justify-center mx-auto">No data available</div>
           )}
         </CollapsibleContent>
         {addNew === "returnCapTable" && (
