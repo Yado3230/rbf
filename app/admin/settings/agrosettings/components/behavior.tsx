@@ -8,15 +8,15 @@ import {
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
-import { Response } from "@/types/types";
+import { SocialResponse } from "@/types/types";
 import { getAll } from "@/actions/farmerBusinessGrowth";
 
 const Behavior = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [addNew, setAddNew] = useState("");
   const [largestWeight, setLargestWeight] = useState<number>(0);
-  const [behaviors, setBehaviors] = useState<Response[]>([]);
-  const [behavior, setBehavior] = useState<Response>();
+  const [behaviors, setBehaviors] = useState<SocialResponse[]>([]);
+  const [behavior, setBehavior] = useState<SocialResponse>();
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -25,7 +25,7 @@ const Behavior = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getAll("api/annualFurtuFarmingIncomes/default");
+        const res = await getAll("api/behaviours/default");
         setBehaviors(res);
       } catch (error) {
         // @ts-ignore
@@ -54,12 +54,9 @@ const Behavior = () => {
           </CollapsibleTrigger>
         </div>
         <div className="flex space-x-2">
-          <div className="grid w-full grid-cols-3 gap-2">
+          <div className="grid w-full grid-cols-2 gap-2">
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
-              Balance Threshold
-            </div>
-            <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
-              Minimum Weight
+              Name
             </div>
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
               Description
@@ -81,12 +78,9 @@ const Behavior = () => {
           {behaviors && behaviors.length > 0 ? (
             behaviors.map((item) => (
               <div className="flex space-x-2" key={item.id}>
-                <div className="grid w-full grid-cols-3 gap-2">
+                <div className="grid w-full grid-cols-2 gap-2">
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                    {item.balanceThreshold}FAINC
-                  </div>
-                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                    {item.minWeight}
+                    {item.name}
                   </div>
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
                     {item.description}
@@ -106,7 +100,7 @@ const Behavior = () => {
               </div>
             ))
           ) : (
-            <div className="flex mx-auto justify-center">No data available</div>
+            <div className="flex justify-center mx-auto">No data available</div>
           )}
         </CollapsibleContent>
         {/* {addNew === "returnCapTable" && (

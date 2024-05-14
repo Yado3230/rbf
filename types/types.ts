@@ -185,7 +185,20 @@ export interface Request {
 export interface Response {
   balanceThreshold: number;
   minWeight: number;
-  minBalanceThreshold?: number; 
+  minBalanceThreshold?: number;
+  description: string;
+  updatedAt: string;
+  id: number;
+}
+
+export interface SocialRequest {
+  name: string;
+  description: string;
+  updatedAt: string;
+}
+
+export interface SocialResponse {
+  name: string;
   description: string;
   updatedAt: string;
   id: number;

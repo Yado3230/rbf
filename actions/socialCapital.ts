@@ -18,24 +18,79 @@ export const getAll = async (endpoint: Endpoint) => {
   }
 };
 
+// export const create = async (
+//   endpoint: Endpoint,
+//   values: Request
+// ): Promise<Response> => {
+//   try {
+//     const { minBalanceThreshold, ...rest } = values;
+//     const dataToSend = {
+//       ...rest,
+//       minBalanceThreshold:
+//         endpoint === "api/assets" ? minBalanceThreshold : undefined,
+//     };
+
+//     const res = await fetch(`${API_URL}${endpoint}`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(dataToSend),
+//     });
+
+//     if (!res.ok) {
+//       // Handle errors here
+//       const errorMessage = await res.text();
+//       throw new Error(errorMessage);
+//     }
+
+//     const responseData = await res.json();
+//     return responseData;
+//   } catch (error) {
+//     console.error("Error creating data:", error);
+//     throw error;
+//   }
+// };
+
+// export const edit = async (
+//   endpoint: Endpoint,
+//   values: Request
+// ): Promise<Response> => {
+//   try {
+//     const { minBalanceThreshold, ...rest } = values;
+//     const dataToSend = {
+//       ...rest,
+//       minBalanceThreshold:
+//         endpoint === "api/assets" ? minBalanceThreshold : undefined,
+//     };
+
+//     const res = await fetch(`${API_URL}${endpoint}`, {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(dataToSend),
+//     });
+
+//     const responseData = await res.json();
+//     return responseData;
+//   } catch (error) {
+//     console.error("Error:", error);
+//     throw error;
+//   }
+// };
 
 export const create = async (
   endpoint: Endpoint,
   values: Request
 ): Promise<Response> => {
   try {
-    const { minBalanceThreshold, ...rest } = values;
-    const dataToSend = {
-      ...rest,
-      minBalanceThreshold: endpoint === "api/assets" ? minBalanceThreshold : undefined,
-    };
-    
     const res = await fetch(`${API_URL}${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataToSend),
+      body: JSON.stringify(values),
     });
 
     if (!res.ok) {
@@ -57,20 +112,13 @@ export const edit = async (
   values: Request
 ): Promise<Response> => {
   try {
-    const { minBalanceThreshold, ...rest } = values;
-    const dataToSend = {
-      ...rest,
-      minBalanceThreshold: endpoint === "api/assets" ? minBalanceThreshold : undefined,
-    };
-    
     const res = await fetch(`${API_URL}${endpoint}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataToSend),
+      body: JSON.stringify(values),
     });
-    
     const responseData = await res.json();
     return responseData;
   } catch (error) {

@@ -8,15 +8,16 @@ import {
 } from "@/components/ui/collapsible";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
-import { Response } from "@/types/types";
+import { SocialResponse } from "@/types/types";
+import AgroForm from "./agro-form";
 import { getAll } from "@/actions/farmerBusinessGrowth";
 
 const Literacy = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [addNew, setAddNew] = useState("");
   const [largestWeight, setLargestWeight] = useState<number>(0);
-  const [literacys, setLiteracys] = useState<Response[]>([]);
-  const [literacy, setLiteracy] = useState<Response>();
+  const [literacies, setLiteracies] = useState<SocialResponse[]>([]);
+  const [literacy, setLiteracy] = useState<SocialResponse>();
   const [updated, setUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -25,8 +26,8 @@ const Literacy = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await getAll("api/annualFurtuFarmingIncomes/default");
-        setLiteracys(res);
+        const res = await getAll("api/educations/default");
+        setLiteracies(res);
       } catch (error) {
         // @ts-ignore
         setError(error);
@@ -36,7 +37,7 @@ const Literacy = () => {
     };
     fetchData();
   }, [updated]);
-  //   console.log(Literacys);
+  // console.log(Literacies);
   return (
     <div className="grid w-full gap-4">
       <Collapsible
@@ -45,7 +46,7 @@ const Literacy = () => {
         className="w-full space-y-2"
       >
         <div className="flex items-center justify-between px-1 space-x-4">
-          <h4 className="text-sm font-semibold">Literacy</h4>
+          <h4 className="text-sm font-semibold">Forecasted Annual Income</h4>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="sm">
               <CaretSortIcon className="w-4 h-4" />
@@ -54,12 +55,9 @@ const Literacy = () => {
           </CollapsibleTrigger>
         </div>
         <div className="flex space-x-2">
-          <div className="grid w-full grid-cols-3 gap-2">
+          <div className="grid w-full grid-cols-2 gap-2">
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
-              Balance Threshold
-            </div>
-            <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
-              Minimum Weight
+              Name
             </div>
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
               Description
@@ -78,15 +76,12 @@ const Literacy = () => {
           </Button>
         </div>
         <CollapsibleContent className="space-y-2">
-          {literacys && literacys.length > 0 ? (
-            literacys.map((item) => (
+          {literacies && literacies.length > 0 ? (
+            literacies.map((item) => (
               <div className="flex space-x-2" key={item.id}>
-                <div className="grid w-full grid-cols-3 gap-2">
+                <div className="grid w-full grid-cols-2 gap-2">
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                    {item.balanceThreshold}FAINC
-                  </div>
-                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                    {item.minWeight}
+                    {item.name}
                   </div>
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
                     {item.description}
@@ -106,7 +101,7 @@ const Literacy = () => {
               </div>
             ))
           ) : (
-            <div className="flex mx-auto justify-center">No data available</div>
+            <div className="flex justify-center mx-auto">No data available</div>
           )}
         </CollapsibleContent>
         {/* {addNew === "returnCapTable" && (
@@ -117,8 +112,8 @@ const Literacy = () => {
             setLoading={setLoading}
             loading={loading}
             agroData={literacy}
-            largestWeight={largestWeight}
-            type="ANNUALFARMINCOME"
+            largestWeight={8}
+            type="api/annualFarmingIncomes"
           />
         )} */}
       </Collapsible>
