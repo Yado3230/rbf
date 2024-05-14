@@ -20,7 +20,7 @@ import {
   deleteScoringData,
   editScoringData,
 } from "@/actions/agro-action";
-import { create } from "@/actions/annual-furtu-farming-incomes";
+import { create, edit } from "@/actions/annual-furtu-farming-incomes";
 
 type AgroFromProps = {
   updated: boolean;
@@ -72,7 +72,7 @@ const AgroForm: FC<AgroFromProps> = ({
     console.log(values);
     try {
       setLoading(true);
-      agroData ? await create(type, values) : await create(type, values);
+      agroData ? await edit(type, values) : await create(type, values);
       setUpdated(!updated);
       toast.success(
         agroData ? "Updated Successfully!" : "Created Successfully!"
@@ -104,8 +104,8 @@ const AgroForm: FC<AgroFromProps> = ({
     <div className="w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex flex-1 space-x-2 w-full">
-            <div className="grid grid-cols-3 gap-2 w-full">
+          <div className="flex flex-1 w-full space-x-2">
+            <div className="grid w-full grid-cols-3 gap-2">
               <FormField
                 control={form.control}
                 name="balanceThreshold"
@@ -157,7 +157,7 @@ const AgroForm: FC<AgroFromProps> = ({
               disabled={loading}
               variant="outline"
             >
-              <Check className="h-4 w-4" />
+              <Check className="w-4 h-4" />
             </Button>
             {agroData && (
               <Button
@@ -167,7 +167,7 @@ const AgroForm: FC<AgroFromProps> = ({
                 variant="destructive"
                 onClick={() => onDelete()}
               >
-                <Trash className="h-4 w-4" />
+                <Trash className="w-4 h-4" />
               </Button>
             )}
             <Button
@@ -177,7 +177,7 @@ const AgroForm: FC<AgroFromProps> = ({
               variant="outline"
               onClick={() => setAddNew("")}
             >
-              <X className="h-4 w-4" />
+              <X className="w-4 h-4" />
             </Button>
           </div>
         </form>
