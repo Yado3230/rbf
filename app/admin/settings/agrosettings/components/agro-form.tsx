@@ -15,12 +15,7 @@ import { Response } from "@/types/types";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Check, Trash, X } from "lucide-react";
-import {
-  createScoringData,
-  deleteScoringData,
-  editScoringData,
-} from "@/actions/agro-action";
-import { create, deleteWithId, edit } from "@/actions/annual-furtu-farming-incomes";
+import { create, deleteWithId, edit } from "@/actions/farmerBusinessGrowth";
 
 type AgroFromProps = {
   updated: boolean;

@@ -66,6 +66,26 @@ export const edit = async (
   }
 };
 
+export const editAsset = async (
+  endpoint: Endpoint,
+  values: Request
+): Promise<Response> => {
+  try {
+    const res = await fetch(`${API_URL}${endpoint}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
 export const deleteWithId = async (endpoint: Endpoint): Promise<void> => {
   try {
     const res = await fetch(`${API_URL}${endpoint}`, {

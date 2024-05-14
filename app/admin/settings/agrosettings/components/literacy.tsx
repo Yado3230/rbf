@@ -9,7 +9,7 @@ import {
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Edit, Plus } from "lucide-react";
 import { Response } from "@/types/types";
-import { getAll } from "@/actions/annual-furtu-farming-incomes";
+import { getAll } from "@/actions/farmerBusinessGrowth";
 
 const Literacy = () => {
   const [isOpen, setIsOpen] = useState(true);
