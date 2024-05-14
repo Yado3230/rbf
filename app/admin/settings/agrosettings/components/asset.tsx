@@ -55,12 +55,15 @@ const Asset = () => {
           </CollapsibleTrigger>
         </div>
         <div className="flex space-x-2">
-          <div className="grid w-full grid-cols-3 gap-2">
+          <div className="grid w-full grid-cols-4 gap-2">
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
               Balance Threshold
             </div>
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
               Minimum Weight
+            </div>
+            <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
+              Minimum Balance Threshold
             </div>
             <div className="px-4 py-2 text-sm font-semibold bg-gray-100 border rounded-md shadow-sm">
               Description
@@ -82,12 +85,15 @@ const Asset = () => {
           {assets && assets.length > 0 ? (
             assets.map((item) => (
               <div className="flex space-x-2" key={item.id}>
-                <div className="grid w-full grid-cols-3 gap-2">
+                <div className="grid w-full grid-cols-4 gap-2">
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
-                    {item.balanceThreshold}FAINC
+                    {item.balanceThreshold}
                   </div>
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
                     {item.minWeight}
+                  </div>
+                  <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
+                    {item.minBalanceThreshold}
                   </div>
                   <div className="px-4 py-2 font-mono text-sm border rounded-md shadow-sm">
                     {item.description}

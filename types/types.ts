@@ -179,12 +179,14 @@ export interface Request {
   minWeight: number;
   description: string;
   updatedAt: string;
+  minBalanceThreshold?: number; // Include minBalanceThreshold in the Request interface
 }
+
 export interface Response {
   balanceThreshold: number;
   minWeight: number;
+  minBalanceThreshold?: number; 
   description: string;
-  createdDate: string;
   updatedAt: string;
   id: number;
 }
