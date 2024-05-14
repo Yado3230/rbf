@@ -20,7 +20,7 @@ import {
   deleteScoringData,
   editScoringData,
 } from "@/actions/agro-action";
-import { create, edit } from "@/actions/annual-furtu-farming-incomes";
+import { create, deleteWithId, edit } from "@/actions/annual-furtu-farming-incomes";
 
 type AgroFromProps = {
   updated: boolean;
@@ -67,12 +67,12 @@ const AgroForm: FC<AgroFromProps> = ({
           // weight: null,
         },
   });
-
+// console.log(`${type}/${agroData?.id}`)
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
     try {
       setLoading(true);
-      agroData ? await edit(type, values) : await create(type, values);
+      agroData ? await edit(`${type}/${agroData.id}`, values) : await create(type, values);
       setUpdated(!updated);
       toast.success(
         agroData ? "Updated Successfully!" : "Created Successfully!"
@@ -88,7 +88,7 @@ const AgroForm: FC<AgroFromProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      agroData && (await deleteScoringData(agroData.id));
+      agroData && (await deleteWithId(`${type}/${agroData.id}`));
       setUpdated(!updated);
       toast.success("Deleted Successfully!");
       setAddNew("");

@@ -51,7 +51,7 @@ export const edit = async (
   values: Request
 ): Promise<Response> => {
   try {
-    const res = await fetch(`${API_URL}${endpoint}}`, {
+    const res = await fetch(`${API_URL}${endpoint}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
